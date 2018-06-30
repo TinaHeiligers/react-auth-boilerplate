@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import logo from './logo.svg';
 import GoogleLogin from 'react-google-login';
+import SignIn from './authComponents/signin';
 import './App.css';
-import { GOOGLE_CLIENT_ID } from './redux/auth/constants'; // TODO: extract .env and place this is there. 
+
+
 class App extends Component {
 
-  responseGoogle = (response) => {
-    console.log('Google Response:', response)
-  }
   render() {
     const appProps = this.props;
     return (
@@ -18,14 +17,9 @@ class App extends Component {
           <h2 className="App-title">Welcome to React for Auth!</h2>
         </header>
         <p className="App-intro">
-          Log in below
+          Log in options below
+          <SignIn />
         </p>
-        <GoogleLogin
-          clientId={GOOGLE_CLIENT_ID}
-          buttonText="Login"
-          onSuccess={this.responseGoogle}
-          onFailure={this.responseGoogle}
-        />
       </div>
     );
   }
