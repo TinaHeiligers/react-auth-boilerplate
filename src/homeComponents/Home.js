@@ -1,44 +1,17 @@
-// TODO: change style to use material-ui
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { Layout, LocaleProvider } from 'antd';
-import enUS from 'antd/lib/locale-provider/en_US';
-import HomeRouter from './HomeRouter';
-import './Home.css';
+import { Route, Redirect } from 'react-router-dom';
 
-const { Content, Footer } = Layout;
-
-class Home extends Component {
-  render() {
-    const { url } = this.props.match;
-    const { pathname } = this.props.location;
-    return (
-      <LocaleProvider locale={enUS}>
-        <Layout style={{ height: '100vh' }}>
-          <Layout className="ant-layout-outer">
-            <Layout className="ant-layout-inner">
-              <Content
-                style={{
-                  padding: '70px 0 0',
-                  flexShrink: '0',
-                  background: '#ffffff',
-                }}>
-                <HomeRouter url={url} />
-              </Content>
-              <Footer
-                style={{
-                  background: '#ffffff',
-                  textAlign: 'center',
-                  borderTop: '1px solid #ededed',
-                }}>
-                React Auth Boilerplate developed by Tallwave.
-              </Footer>
-            </Layout>
-          </Layout>
-        </Layout>
-      </LocaleProvider>
-    );
+const Home = ({ token }) => {
+  if (!token) {
+    return <Redirect to="/login" />;
   }
-}
 
-export default Home;
+  return <div> You are logged in.</div>;
+};
+
+const mapStateToProps = (state) => ({
+  token: state.auth.token
+});
+
+export default connect(mapStateToProps)(Home);
