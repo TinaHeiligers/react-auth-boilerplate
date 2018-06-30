@@ -1,9 +1,13 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { ConnectedRouter } from 'react-router-redux';
+import { syncHistoryWithStore } from 'react-router-redux';
 import { connect } from 'react-redux';
-
-import Home from './homeComponents/Home';
+import { Router } from 'react-router';
+import Home from '../homeComponents/Home';
+import App from '../App';
+import SignIn from '../authComponents/signin';
+import FourZeroFour from '../otherComponents/404';
+import FiveHundred from '../otherComponents/500';
 // import Auth0 from './helpers/auth0';
 
 const RestrictedRoute = ({ component: Component, path , isLoggedIn }) =>
@@ -16,44 +20,44 @@ const RestrictedRoute = ({ component: Component, path , isLoggedIn }) =>
 
 const PublicRoutes = ({ history, isLoggedIn }) => {
   return (
-    <ConnectedRouter history={history}>
+    <Router history={ history }>
       <div>
         <Route
           exact
           path={'/'}
-          component={import('./App'))}
+          component={App}
         />
-        <Route
+        {/*<Route
           exact
           path={'/signin'}
-          component={import('./authComponents/signin'))}
-        />
+          component={SignIn}
+        />*/}
         <Route
           exact
           path={'/404'}
-          component={import('./otherComponents/404'))}
+          component={FourZeroFour}
         />
         <Route
           exact
           path={'/500'}
-          component={import('./otherComponents/500'))}
+          component={FiveHundred}
         />
-        {/*<RestrictedRoute
+        <RestrictedRoute
           path="/home"
           component={Home}
           isLoggedIn={isLoggedIn}
-        />*/}
-        <RestrictedRoute
+        />
+        {/*<RestrictedRoute
           path="/counter"
           component={import('./counterComponents/counter')}
           // isLoggedIn={isLoggedIn}
-        />
+        />*/}
       </div>
-    </ConnectedRouter>
+  </Router>    
   );
 };
 
 export default connect(state => ({
-  counter: state.Counter.counter;
+  counter: state.Counter
   // isLoggedIn: state.Auth.idToken !== null // TODO: createAuth in redux
 }))(PublicRoutes);

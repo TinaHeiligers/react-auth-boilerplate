@@ -20,7 +20,7 @@ const rootReducer = (state, action) => {
   // if (action.type === 'LOGOUT') {
   //   state = undefined
   // }
-  return combinedReducers(sate, action)
+  return combinedReducers(state, action)
 };
 
 const store = createStore(

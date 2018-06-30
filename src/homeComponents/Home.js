@@ -7,16 +7,14 @@ import HomeRouter from './HomeRouter';
 import './Home.css';
 
 const { Content, Footer } = Layout;
-const { logout } = authAction;
 
-export class Home extends Component {
+class Home extends Component {
   render() {
     const { url } = this.props.match;
     const { pathname } = this.props.location;
     return (
       <LocaleProvider locale={enUS}>
         <Layout style={{ height: '100vh' }}>
-      {/*<Topbar url={url} pathname={pathname} />*/} will be navigation
           <Layout className="ant-layout-outer">
             <Layout className="ant-layout-inner">
               <Content
@@ -43,9 +41,4 @@ export class Home extends Component {
   }
 }
 
-export default connect(
-  state => ({
-    auth: state.Auth,
-  }),
-  { logout, toggleAll },
-)(Home);
+export default Home;

@@ -19,3 +19,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+#Google client Id, do not remove from here!
+redux.auth.constants.js

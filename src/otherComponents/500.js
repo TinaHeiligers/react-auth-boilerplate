@@ -9,7 +9,7 @@ class FiveHundred extends React.Component {
           <h1>500</h1>
           <h3>Internal Server Error</h3>
           <p>Something went wrong. Please try again letter.</p>
-          <button type="button"><Link to="/home">BACK HOME</Link></button>
+          <button type="button"><Link to="/">BACK HOME</Link></button>
         </div>
       </div>
     );

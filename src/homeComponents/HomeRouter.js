@@ -11,11 +11,11 @@ class HomeRouter extends Component {
           path={`${url}/help`}
           component={ Help }
         />
-        <Route
+        {/*<Route
           exact
           path={`${url}/counter`}
           component={ Counter }
-        />
+        />*/}
       </Switch>
     );
   }
@@ -25,6 +25,8 @@ export default HomeRouter;
 
 class Help extends Component {
   render() {
-    <div>Help!</div>
+    return (
+      <div>Help!</div>
+    )
   };
 };

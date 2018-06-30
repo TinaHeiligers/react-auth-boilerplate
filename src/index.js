@@ -6,7 +6,8 @@ import enUS from 'antd/lib/locale-provider/en_US';
 import moment from 'moment-timezone';
 import registerServiceWorker from './registerServiceWorker';
 import { store, history } from  './redux/store';
-import PublicRoutes from './router';
+import PublicRoutes from './routeComponents/publicRoutes';
+import App from './App';
 import './index.css';
 
 moment.tz.setDefault("America/Phoenix");
@@ -19,5 +20,3 @@ ReactDOM.render(
   </LocaleProvider>, 
   document.getElementById('root'));
 registerServiceWorker();
-
-export default DashApp;
