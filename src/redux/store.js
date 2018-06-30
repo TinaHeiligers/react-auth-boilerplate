@@ -34,6 +34,7 @@ sagaMiddleware.run(rootSaga);
 
 export { store, history };
 
+// ORIGINAL CODE, TODO: remove once assured the code above works.
 // import { createStore, applyMiddleware, compose } from 'redux';
 // import { combineReducers } from 'redux-immutable';
 // import { routerReducer, routerMiddleware } from 'react-router-redux';

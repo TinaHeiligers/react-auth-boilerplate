@@ -12,10 +12,4 @@ const allReducers = combineReducers({
 
 export default allReducers;
 
-// const rootReducer = (state, action) => {
-//   // clearing state on logout, uncomment to use
-//   // if (action.type === 'LOGOUT') {
-//   //   state = undefined
-//   // }
-//   return combinedReducers(state, action)
-// };
+// 
