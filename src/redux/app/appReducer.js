@@ -5,7 +5,7 @@ const initState = new Map({
   loading: true,
   error: null,
 });
-const app = (state = initState, action) => {
+const appReducer = (state = initState, action) => {
   switch (action.type) {
     case appActions.APP_LOADING:
       return state.set('loading', action.loading);
@@ -14,4 +14,4 @@ const app = (state = initState, action) => {
   }
   return state;
 }
-export default app;
+export default appReducer;
