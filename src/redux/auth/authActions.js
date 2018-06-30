@@ -6,4 +6,5 @@ const authActions = {
     type: authActions.AUTH_REQUEST,
     payload: { login, password }
   })
-}
+};
+export default authActions;

@@ -1,22 +1,27 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest, all, fork } from 'redux-saga/effects';
+import { push } from 'react-router-redux'
 import authActions from './authActions';
-import { fetchJSON } from './authServices';
+import { fetchJSON, authMock } from './authServices';
 
+const baseURL = 'http://localhost:4000';
 
 export function* authorizeWatcher() {
   yield takeLatest(authActions.AUTH_REQUEST, authorizeRunner)
 };
 
-export function* authorizeRunner({ payload: { login, password } }) {
+export function* authorizeRunner(action) {
+  const payload = action.payload;
   const options = {
-    body: JSON.stringify({ login, password }),
+    body: JSON.stringify({login: payload.login, password: payload.password}),
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' }
+    headers: { 'Content-Type': 'application/json' } 
   }
   try {
-    const { token } = yield call(fetchJSON, '/login', options);
+    // const { token } = yield call(fetchJSON, `${baseURL}/login`, options); // Real call to the server.
+    const { token } = yield call(authMock, payload.login, payload.password); // Mock call.
     yield put({ type: authActions.AUTH_SUCCESS, payload: token });
     localStorage.setItem('token', token);
+    yield put(push('/'))
   } catch (error) {
     let message;
     switch (error.status) {
@@ -31,6 +36,6 @@ export function* authorizeRunner({ payload: { login, password } }) {
 
 export default function* authSagas() {
   yield all([
-    fork(authorixeWatcher),
+    fork(authorizeWatcher),
   ]);
 };

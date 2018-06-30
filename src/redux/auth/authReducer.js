@@ -2,11 +2,11 @@ import { Map } from 'immutable';
 import authActions from './authActions';
 
 const initialState = new Map({
-  token: localStorage.getItem('token'),
+  token: null,
   error: null,
 });
 
-const authReducer = (state = initialState, action => {
+const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case authActions.AUTH_SUCCESS: {
       return state.set('token', action.payload);
@@ -17,5 +17,5 @@ const authReducer = (state = initialState, action => {
     default:
       return state;
   }
-});
+};
 export default authReducer;

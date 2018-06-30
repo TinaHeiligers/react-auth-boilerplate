@@ -5,8 +5,17 @@ import authReducer from './auth/authReducer';
 // import Counter from './counter/counterReducer';
 // TODO: add counterReducer.
 const allReducers = combineReducers({
+  app: appReducer,
   auth: authReducer,
-  router: routerReducer,
+  routing: routerReducer,
 })
+// clearing the store except for routing on log out.
+const rootReducer = (state, action) => {
+  if (action.type === 'USER_LOGOUT') {
+    const { routing } = state
+    state = { routing } 
+  }
+  return allReducers(state, action)
+}
 
 export default allReducers;

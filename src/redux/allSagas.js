@@ -1,5 +1,5 @@
 import { all } from 'redux-saga/effects';
-import authSagas from './auth/authSagas';
+import authSagas from './auth/authSaga';
 import appSagas from './app/appSaga';
 import counterSagas from './counter/counterSaga';
 

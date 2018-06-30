@@ -12,6 +12,5 @@ const appReducer = (state = initState, action) => {
     default:
       return state;
   }
-  return state;
 }
 export default appReducer;

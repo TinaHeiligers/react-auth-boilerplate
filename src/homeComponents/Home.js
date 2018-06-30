@@ -1,17 +1,16 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
-const Home = ({ token }) => {
+const Main = ({ token }) => {
   if (!token) {
     return <Redirect to="/login" />;
   }
-
   return <div> You are logged in.</div>;
 };
 
 const mapStateToProps = (state) => ({
-  token: state.auth.token
+  token: state.getIn(['auth', 'token'])
 });
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(Main);

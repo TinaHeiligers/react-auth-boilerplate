@@ -3,22 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { authorize } from '../../redux/auth/authActions';
+import authActions from '../redux/auth/authActions';
+const { authorize } = authActions;
 
 class SignIn extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = { login: '', password: '' };
-    this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChange(input, value) {
-    this.setState({ [input]: value });
-  }
-
   onSubmit() {
-    const { login, password } = this.state;
+    const login = this.login.value;
+    const password = this.password.value;
     this.props.dispatch(authorize(login, password));
   }
 
@@ -31,29 +27,39 @@ class SignIn extends PureComponent {
 
     return (
       <div>
-        <input
-          type='text'
-          placeholder='login'      
-          value={this.state.login}
-          onChange={this.onChange.bind(this, 'login')}
-        />
-        <input
-          type='password'
-          placeholder='password'
-          value={this.state.password}
-          onChange={this.onChange.bind(this, 'password')}
-        />
-        <button onClick={this.onSubmit}>Submit</button>
+        {error && <div style={{ color: 'red' }}>{error}</div>}
+        <div>
+          <input
+            ref={_ref => this.login = _ref}
+            type="text"
+            placeholder="login"
+          />
+        </div>
+        <div>
+          <input
+            ref={_ref => this.password = _ref}
+            type="password"
+            placeholder="password"
+          />
+        </div>
+        <div>
+          <button onClick={this.onSubmit}>Submit</button>
+        </div>
       </div>
     );
   }
 }
-
+SignIn.propTypes = {
+  token: PropTypes.string,
+  error: PropTypes.string,
+  authorize: PropTypes.func.isRequired,
+}
 export default connect(
   state => ({
-    token: state.auth.token,
-    error: state.auth.error
-  }, { authorize }))(SignIn);
+    token: state.getIn(['auth', 'token']),
+    error: state.getIn(['auth', 'error'])
+  }, { authorize })
+)(SignIn);
 
 /*import React, { Component } from 'react';
 import { connect } from 'react-redux';

@@ -3,3 +3,4 @@ The server then needs to take the token, send it back to Google and get a more p
 Create the user account from the profile info returned (here or earlier?)
 Create a cookie for the user
 Send the cookie back to the client.
+figure out how to get the cookie from the server and use it.

@@ -12,6 +12,6 @@ moment.tz.setDefault("America/Phoenix");
 ReactDOM.render(
     <Provider store={ store }>
       <App history={ history } />
-    </Provider>
+    </Provider>,
   document.getElementById('root'));
 registerServiceWorker();
