@@ -9,6 +9,45 @@ import SignInWithGoogle from './authComponents/signInWithGoogle';
 import Home from './homeComponents/Home';
 import LoginOptions from './authComponents/loginOptions';
 
+class MainApp extends Component {
+  render() {
+    if (this.props.token) {
+      return (<Restricted />)
+    } else {
+      return (<Public />)
+    }
+  }
+}
+export default connect(
+  state => ({
+    token: state.getIn(['auth', 'token']),
+  }),{})(MainApp);
+
+class Restricted extends Component {
+  render() {
+    return(
+      <ConnectedRouter history={history}>
+        <div>
+          <h1>Restricted</h1>
+          <button onClick={() => console.log('trigger logout action')}>Log Out</button>
+        </div>
+      </ConnectedRouter>
+    )
+  }
+}
+class Public extends Component {
+  render() {
+    return(
+      <ConnectedRouter history={history}>
+        <div>
+          <h1>Public</h1>
+          <LoginOptions />
+        </div>
+      </ConnectedRouter>
+    )
+  }
+}
+
 const App = props => {
   const { history } = props;
   return (
@@ -35,7 +74,6 @@ const App = props => {
   );
 };
 
-export default App;
 //*******************************fake
 const fakeAuth = {
   isAuthenticated: false,
@@ -48,7 +86,7 @@ const fakeAuth = {
     setTimeout(cb, 100);
   }
 };
-
+//********************
 class AuthButton extends Component {
   render() {
     console.log(this.props)
@@ -74,6 +112,7 @@ const AuthButtonComponent = connect(
     { signout: () => { dispatch(push('/')) } }
   })(AuthButton);
 
+//********************
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
