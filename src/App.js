@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux'
+import { history } from  './redux/store';
 import { Route, Switch, Link, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import SignInBasic from './authComponents/signInBasic';
@@ -11,7 +14,7 @@ const App = props => {
   return (
     <ConnectedRouter history={history}>
       <div>
-      <AuthButton history={history}/>
+      <AuthButtonComponent />
         <ul>
           <li>
             <Link to="/">Home</Link>
@@ -19,12 +22,6 @@ const App = props => {
           <li>
             <Link to="/protected">Protected Page</Link>
           </li>
-          {/*<li>
-            <Link to="/login/basic">Login In With Email</Link>
-          </li>
-          <li>
-            <Link to="/login/google">Login In With Google</Link>
-          </li>*/}
         </ul>
         <Switch>
           <Route exact path="/" component={Home} />
@@ -52,16 +49,30 @@ const fakeAuth = {
   }
 };
 
-const AuthButton = ({ history }) =>
-  fakeAuth.isAuthenticated ? 
-  (
-    <p>Welcome!{" "}
-      <button
-        onClick={() => {
-          fakeAuth.signout(() => history.push("/"));
-        }}
-      > Sign out </button></p>
-    ) : (<p>You are not logged in.</p>);
+class AuthButton extends Component {
+  render() {
+    console.log(this.props)
+    const token = this.props.token;
+    if (token) {
+      return ( 
+        <p>Welcome!{" "}
+          <button onClick={this.props.signout}> Sign out </button>
+        </p>
+      );
+    } else {
+      return (
+        <p>You are not logged in.</p>
+      );
+    }
+  }
+}
+const AuthButtonComponent = connect(
+  state => ({
+    token: state.getIn(['auth', 'token']),
+  }), 
+  dispatch => {
+    { signout: () => { dispatch(push('/')) } }
+  })(AuthButton);
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
