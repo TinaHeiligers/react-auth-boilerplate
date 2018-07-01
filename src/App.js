@@ -3,7 +3,7 @@ import { Route, Switch, Link, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import SignInBasic from './authComponents/signInBasic';
 import SignInWithGoogle from './authComponents/signInWithGoogle';
-import Main from './homeComponents/Home';
+import Home from './homeComponents/Home';
 import LoginOptions from './authComponents/loginOptions';
 
 const App = props => {
@@ -27,7 +27,7 @@ const App = props => {
           </li>*/}
         </ul>
         <Switch>
-          <Route exact path="/" component={Main} />
+          <Route exact path="/" component={Home} />
           <PrivateRoute path="/protected" component={Protected} />
           <Route path="/login/options" component={LoginOptions} /> 
           <Route path="/login/basic" component={SignInBasic} />
