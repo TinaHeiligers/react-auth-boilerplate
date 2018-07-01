@@ -1,20 +1,81 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
-
-import Home from './homeComponents/Home';
-import SignIn from './authComponents/signin';
+import SignInBasic from './authComponents/signInBasic';
+import SignInWithGoogle from './authComponents/signInWithGoogle';
+import Main from './homeComponents/Home';
+import LoginOptions from './authComponents/loginOptions';
 
 const App = props => {
   const { history } = props;
   return (
     <ConnectedRouter history={history}>
-      <Switch>
-        <Route path="/login" component={SignIn} />
-        <Route path="/" component={Home} />
-      </Switch>
+      <div>
+      <AuthButton history={history}/>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/protected">Protected Page</Link>
+          </li>
+          {/*<li>
+            <Link to="/login/basic">Login In With Email</Link>
+          </li>
+          <li>
+            <Link to="/login/google">Login In With Google</Link>
+          </li>*/}
+        </ul>
+        <Switch>
+          <Route exact path="/" component={Main} />
+          <PrivateRoute path="/protected" component={Protected} />
+          <Route path="/login/options" component={LoginOptions} /> 
+          <Route path="/basic" component={SignInBasic} />
+          <Route path="/google" component={SignInWithGoogle} />
+        </Switch>
+        </div>
     </ConnectedRouter>
   );
 };
 
 export default App;
+//*******************************fake
+const fakeAuth = {
+  isAuthenticated: false,
+  authenticate(cb) {
+    this.isAuthenticated = true;
+    setTimeout(cb, 100); // fake async
+  },
+  signout(cb) {
+    this.isAuthenticated = false;
+    setTimeout(cb, 100);
+  }
+};
+
+const AuthButton = ({ history }) =>
+  fakeAuth.isAuthenticated ? 
+  (
+    <p>Welcome!{" "}
+      <button
+        onClick={() => {
+          fakeAuth.signout(() => history.push("/"));
+        }}
+      > Sign out </button></p>
+    ) : (<p>You are not logged in.</p>);
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props => fakeAuth.isAuthenticated ? 
+      (<Component {...props} />) : (
+        <Redirect
+          to={{
+            pathname: "/login/options",
+            state: { from: props.location }
+          }}
+        />
+      )
+    }
+  />
+);
+const Protected = () => <h3>Protected</h3>;

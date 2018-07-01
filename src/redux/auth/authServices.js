@@ -1,3 +1,4 @@
+// TODO: convert to axios, see https://kapeli.com/cheat_sheets/Axios.docset/Contents/Resources/Documents/index
 export const fetchJSON = (url, options = {}) => 
   new Promise((resolve, reject) => {
     return fetch(url, options)
@@ -15,3 +16,7 @@ export const authMock = (login, password) =>
       reject({ status: 401 });
     }
   });
+
+
+// After client auth with Google;
+//https://developers.google.com/identity/sign-in/web/backend-auth

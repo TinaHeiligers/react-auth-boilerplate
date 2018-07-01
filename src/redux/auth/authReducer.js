@@ -3,6 +3,7 @@ import authActions from './authActions';
 
 const initialState = new Map({
   token: null,
+  googleToken: null,
   error: null,
 });
 
