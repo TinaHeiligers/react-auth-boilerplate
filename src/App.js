@@ -30,8 +30,8 @@ const App = props => {
           <Route exact path="/" component={Main} />
           <PrivateRoute path="/protected" component={Protected} />
           <Route path="/login/options" component={LoginOptions} /> 
-          <Route path="/basic" component={SignInBasic} />
-          <Route path="/google" component={SignInWithGoogle} />
+          <Route path="/login/basic" component={SignInBasic} />
+          <Route path="/login/google" component={SignInWithGoogle} />
         </Switch>
         </div>
     </ConnectedRouter>
