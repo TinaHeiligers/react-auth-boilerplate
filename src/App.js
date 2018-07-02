@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { history } from  './redux/store';
-import { ConnectedRouter } from 'react-router-redux';
 import Restricted from './routingComponents/Restricted';
 import Public from './routingComponents/Public';
 

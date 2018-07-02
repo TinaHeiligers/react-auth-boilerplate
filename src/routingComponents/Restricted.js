@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { history } from  '../redux/store';
 import { ConnectedRouter } from 'react-router-redux';
-import LoginOptions from '../authComponents/loginOptions';
 import authActions from '../redux/auth/authActions';
 const { logOut } = authActions;
 

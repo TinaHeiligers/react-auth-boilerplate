@@ -1,9 +1,9 @@
 import { call, put, takeLatest, all, fork } from 'redux-saga/effects';
 import { push } from 'react-router-redux'
 import authActions from './authActions';
-import { fetchJSON, authMock } from './authServices';
-
-const baseURL = 'http://localhost:4000';
+import { authMock } from './authServices';
+// import { fetchJSON, authMock } from './authServices';
+// const baseURL = 'http://localhost:4000';
 
 export function* authorizeWatcher() {
   yield takeLatest(authActions.AUTH_REQUEST, authorizeRunner)
@@ -11,11 +11,12 @@ export function* authorizeWatcher() {
 
 export function* authorizeRunner(action) {
   const payload = action.payload;
-  const options = {
-    body: JSON.stringify({login: payload.login, password: payload.password}),
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' } 
-  }
+  // for real api calls
+  // const options = {
+  //   body: JSON.stringify({login: payload.login, password: payload.password}),
+  //   method: 'POST',
+  //   headers: { 'Content-Type': 'application/json' } 
+  // }
   try {
     // const { token } = yield call(fetchJSON, `${baseURL}/login`, options); // Real call to the server.
     const { token } = yield call(authMock, payload.login, payload.password); // Mock call.

@@ -3,7 +3,7 @@ import { Route, Link} from 'react-router-dom';
 import SignInBasic from './signInBasic';
 import SignInWithGoogle from './signInWithGoogle';
 
-class LoginOptions extends React.Component {
+class LoginOptions extends Component {
   render () {
     return (
       <div>

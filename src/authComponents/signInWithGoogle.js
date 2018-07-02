@@ -4,8 +4,20 @@ import { connect } from 'react-redux';
 import { GOOGLE_CLIENT_ID } from '../redux/auth/constants'; // TODO: extract .env and place this is there. 
 
 class SignInWithGoogle extends Component {
+  onSignInFailure = (errorResponse) => {
+    console.log('Google Response:', errorResponse)
+  }
+  onSignIn = (googleAuth) => {
+    const authResponse = googleAuth.getAuthResponse();
+    console.log('authResponse:', authResponse)
+    const idToken = authResponse.id_token;
+    console.log('id_token:', idToken)
+    const tokenObject = authResponse.tokenObject
+    console.log('tokenObject:', tokenObject)
+  }
+
   responseGoogle = (response) => {
-    console.log('Google Response:', response)
+    console.log(response);
   }
   render() {
     return (
@@ -15,8 +27,8 @@ class SignInWithGoogle extends Component {
           <GoogleLogin
             clientId={GOOGLE_CLIENT_ID}
             buttonText="Login"
-            onSuccess={this.responseGoogle}
-            onFailure={this.responseGoogle}
+            onSuccess={this.onSignIn}
+            onFailure={this.onSignInFailure}
         />
         </div>
       </div>
@@ -29,7 +41,7 @@ export default connect(
     loading: state.getIn(['App', 'loading']),
     googleToken: state.getIn(['auth', 'googleToken']),
     error: state.getIn(['auth', 'error'])
-  }, {}))(SignInWithGoogle);
+  }), {})(SignInWithGoogle);
 
 // export default connect(
 //   state => ({
