@@ -10,10 +10,10 @@ const initialState = new Map({
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case authActions.AUTH_SUCCESS: {
-      return state.set('token', action.payload);
+      return state.set('token', action.token);
     }
     case authActions.AUTH_FAILURE: {
-      return state.set('error', action.payload);
+      return state.set('error', action.token);
     }
     case authActions.LOG_OUT: {
       return state.set('token', null);
