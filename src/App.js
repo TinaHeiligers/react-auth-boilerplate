@@ -26,7 +26,6 @@ class Restricted extends Component {
     this.onLogOut = this.onLogOut.bind(this);
   }
   onLogOut() {
-    console.log('In Re')
     this.props.logOut();
   }
   render() {
