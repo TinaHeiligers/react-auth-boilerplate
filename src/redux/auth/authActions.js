@@ -24,7 +24,7 @@ const authActions = {
   logOut: () => ({
     type: authActions.LOG_OUT,
   }),
-  authFailureEmailNotValid: (message) => ({
+  authFailureEmailNotValid: (message = 'Email Not Valid') => ({
     type: authActions.AUTH_FAILURE_EMAIL_NOT_VALID,
     error: message,
   }),
@@ -37,7 +37,7 @@ const authActions = {
     type: authActions.VERIFY_TEMP_TOKEN_SUCCESS,
     token,
   }),
-  googleAuthError: (error) => ({
+  authGoogleFailure: (error = 'google auth error') => ({
     type: authActions.AUTH_FAILURE_GOOGLE,
     error,
   }),

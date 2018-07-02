@@ -25,7 +25,6 @@ const authReducer = (state = initialState, action) => {
       return state.set('googleTempToken', action.tempToken)
     }
     case authActions.VERIFY_TEMP_TOKEN_SUCCESS: {
-      console.log('REDUCER:', action.token)
       return state.set('token', action.token)
     }
     case authActions.AUTH_FAILURE_GOOGLE: {

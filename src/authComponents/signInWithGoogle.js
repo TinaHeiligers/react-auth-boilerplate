@@ -4,16 +4,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { GOOGLE_CLIENT_ID } from '../redux/auth/constants'; // TODO: extract .env and place this is there. 
 import authActions from '../redux/auth/authActions';
-const { verifyTempGoogleToken, googleAuthError } = authActions;
+const { verifyTempGoogleToken, authGoogleFailure } = authActions;
 
 class SignInWithGoogle extends Component {
   onSignInFailure = (errorResponse) => {
-    console.log('Google Response:', errorResponse)
-    this.props.gAuthError(errorResponse)
+    this.props.authGoogleFailure(errorResponse)
   }
   onSignIn = (googleAuth) => {
     const authResponse = googleAuth.getAuthResponse();
-    console.log('authResponse:', authResponse)
     const idToken = authResponse.id_token; // this is the item we need to send to the server
     this.props.verifyTempGoogleToken(idToken);
   }
@@ -43,7 +41,7 @@ SignInWithGoogle.propTypes = {
   googleTempToken: PropTypes.string,
   error: PropTypes.string,
   verifyTempGoogleToken: PropTypes.func.isRequired,
-  googleAuthError: PropTypes.func
+  authGoogleFailure: PropTypes.func
 }
 export default connect(
   state => ({
@@ -53,5 +51,5 @@ export default connect(
     error: state.getIn(['auth', 'error'])
   }), { 
     verifyTempGoogleToken, 
-    googleAuthError,
+    authGoogleFailure,
 })(SignInWithGoogle);

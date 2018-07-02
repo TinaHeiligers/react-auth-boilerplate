@@ -50,7 +50,6 @@ export function* verifyTempGoogleTokenRunner(action) {
     const mockedResponse = yield call(tokenVerifyMock, options); // Mock call.
     yield put({ type: authActions.VERIFY_TEMP_TOKEN_SUCCESS, token: mockedResponse.token });
     // do I need to do something with the cookie here?
-    debugger;
     localStorage.setItem('token', mockedResponse.token);
     yield put(push('/'))
   } catch (error) {
