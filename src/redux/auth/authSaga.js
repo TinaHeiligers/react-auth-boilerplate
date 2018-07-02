@@ -33,9 +33,16 @@ export function* authorizeRunner(action) {
     localStorage.removeItem('token');
   }
 }
+export function* logOutWatcher() {
+  yield takeLatest(authActions.LOG_OUT, logOutRunner)
+}
+export function* logOutRunner() {
+  yield put(push('/'));
+}
 
 export default function* authSagas() {
   yield all([
     fork(authorizeWatcher),
+    fork(logOutWatcher),
   ]);
 };

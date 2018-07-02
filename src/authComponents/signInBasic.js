@@ -12,10 +12,11 @@ class SignInBasic extends PureComponent {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSubmit() {
+  onSubmit(e) {
+    e.preventDefault();
     const login = this.login.value;
     const password = this.password.value;
-    this.props.dispatch(authorize(login, password));
+    this.props.authorize(login, password);
   }
 
   render() {
@@ -58,5 +59,5 @@ export default connect(
   state => ({
     token: state.getIn(['auth', 'token']),
     error: state.getIn(['auth', 'error'])
-  }, { authorize })
+  }), { authorize }
 )(SignInBasic);
