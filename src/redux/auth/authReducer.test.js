@@ -14,28 +14,48 @@ describe.only('auth reducer', () => {
   it('updates state on AUTH_SUCCESS', () => {
     const testToken = '1234';
     const testAction = authActions.authorizeSuccess(testToken);
-    console.log('testAction', testAction)
     const newState = authReducer(defaultState, testAction);
-    console.log(newState)
     expect(newState.get('token')).toEqual(testToken);
   });
-  // it('updates state on SWITCH_PLAYER', () => {
-  //   const testPlayer1 = Immutable.Map({ 'name': 'testPlayer1', 'playerScore': 0 });
-  //   const testPlayer2 = Immutable.Map({ 'name': 'testPlayer2', 'playerScore': 0 });
-  //   const testState = defaultState.update('all', all => all.push(testPlayer1))
-  //   const testState2 = testState.update('all', all => all.push(testPlayer2))
-  //   const testState3 = testState2.set('current', 0);
-  //   const testAction = authActions.switchPlayer();
-  //   const newState = reducer(testState3, testAction);
-  //   expect(newState.get('current')).toEqual(1);
-  // });
+  it('updates state on AUTH_FAILURE', () => {
+    const testError = new Error('auth failure');
+    const testAction = authActions.authError(testError);
+    const newState = authReducer(defaultState, testAction);
+    expect(newState.get('error')).toEqual(testError);
+  });
+  it('updates state on LOG_OUT', () => {
+    const testState = defaultState.set('token', 'test_token')
+    const testAction = authActions.logOut();
+    const newState = authReducer(testState, testAction);
+    expect(newState.get('token')).toBeNull()
+  });
+  it('updates state on AUTH_FAILURE_EMAIL_NOT_VALID', () => {
+    const testError = new Error('blah')
+    const testAction = authActions.authFailureEmailNotValid(testError);
+    const newState = authReducer(defaultState, testAction);
+    expect(newState.get('error')).toEqual(testError)
+  });
+  it('updates state on VERIFY_TEMP_TOKEN_REQUEST', () => {
+    const testToken = '1234';
+    const testAction = authActions.verifyTempGoogleToken(testToken);
+    const newState = authReducer(defaultState, testAction);
+    expect(newState.get('googleTempToken')).toEqual(testToken);
+  });
+  it('updates state on VERIFY_TEMP_TOKEN_SUCCESS', () => {
+    const testToken = '1234';
+    const testAction = authActions.verifyTempGoogleTokenSuccess(testToken);
+    const newState = authReducer(defaultState, testAction);
+    expect(newState.get('token')).toEqual(testToken);
+  });
+  it('updates state on AUTH_FAILURE_GOOGLE with an error message', () => {
+    const testError = new Error('blah')
+    const testAction = authActions.authGoogleFailure(testError);
+    const newState = authReducer(defaultState, testAction);
+    expect(newState.get('error')).toEqual(testError)
+  });
+  it('updates state on AUTH_FAILURE_GOOGLE without an error message', () => {
+    const testAction = authActions.authGoogleFailure();
+    const newState = authReducer(defaultState, testAction);
+    expect(newState.get('error')).toEqual('google auth error')
+  });
 });
-/* TODO:
-AUTH_SUCCESS
-AUTH_FAILURE
-LOG_OUT
-AUTH_FAILURE_EMAIL_NOT_VALID
-VERIFY_TEMP_TOKEN_REQUEST
-VERIFY_TEMP_TOKEN_SUCCESS
-AUTH_FAILURE_GOOGLE
-*/
