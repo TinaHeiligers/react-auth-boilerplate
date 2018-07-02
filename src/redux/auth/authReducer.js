@@ -15,6 +15,10 @@ const authReducer = (state = initialState, action) => {
     case authActions.AUTH_FAILURE: {
       return state.set('error', action.payload);
     }
+    case authActions.LOG_OUT: {
+      console.log('Reducer')
+      return state.set('token', null);
+    }
     default:
       return state;
   }
