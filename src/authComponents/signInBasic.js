@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-
+import { validateEmail } from './utils/validations';
 import authActions from '../redux/auth/authActions';
-const { authorize } = authActions;
+const { authorize, authFailureEmailNotValid } = authActions;
 
 class SignInBasic extends PureComponent {
   constructor(props) {
@@ -16,7 +16,11 @@ class SignInBasic extends PureComponent {
     e.preventDefault();
     const login = this.login.value;
     const password = this.password.value;
-    this.props.authorize(login, password);
+    if (validateEmail(login)) {
+      this.props.authorize(login, password);
+    } else {
+      this.props.authFailureEmailNotValid('not a valid email address');
+    }
   }
 
   render() {
@@ -32,7 +36,7 @@ class SignInBasic extends PureComponent {
         <div>
           <input
             ref={_ref => this.login = _ref}
-            type="text"
+            type="email"
             placeholder="login"
           />
         </div>
@@ -54,10 +58,11 @@ SignInBasic.propTypes = {
   token: PropTypes.string,
   error: PropTypes.string,
   authorize: PropTypes.func.isRequired,
+  authFailureEmailNotValid: PropTypes.func,
 }
 export default connect(
   state => ({
     token: state.getIn(['auth', 'token']),
     error: state.getIn(['auth', 'error'])
-  }), { authorize }
+  }), { authorize, authFailureEmailNotValid }
 )(SignInBasic);

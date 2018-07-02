@@ -1,4 +1,6 @@
 // TODO: convert to axios, see https://kapeli.com/cheat_sheets/Axios.docset/Contents/Resources/Documents/index
+import { validateEmail } from '../../utils/validations';
+
 export const fetchJSON = (url, options = {}) => 
   new Promise((resolve, reject) => {
     return fetch(url, options)
@@ -10,7 +12,7 @@ export const fetchJSON = (url, options = {}) =>
 
 export const authMock = (login, password) =>
   new Promise((resolve, reject) => {
-    if (login === 'root' && password === 'root') {
+    if (validateEmail(login) && password === 'password') {
       resolve({ token: 'secret-token' });
     } else {
       reject({ status: 401 });

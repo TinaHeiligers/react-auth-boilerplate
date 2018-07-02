@@ -1,6 +1,6 @@
   import createHistory from 'history/createBrowserHistory';
 import createSagaMiddleware from 'redux-saga';
-import { routerMiddleware } from 'react-router-redux';
+import { routerMiddleware, push } from 'react-router-redux';
 import { applyMiddleware, createStore, compose } from 'redux';
 
 import logger from 'redux-logger';
@@ -20,6 +20,8 @@ const store = createStore(
     )
 );
 
+
 sagaMiddleware.run(rootSaga);
+store.dispatch(push('/'));
 
 export { store, history };
