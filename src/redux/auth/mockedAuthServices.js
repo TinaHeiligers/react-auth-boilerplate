@@ -11,10 +11,10 @@ export const authMock = (login, password) =>
   });
 
 export const tokenVerifyMock = (options) =>
-  const tempToken = options.body.idtoken;
   // this should be a JWT token
   new Promise((resolve, reject) => {
-    if (tempToken) {
+    const tempToken = JSON.parse(options.body);
+    if (tempToken.idToken) {
       resolve({ token: 'verified-google-token' });
     } else {
       reject({ status: 401 });

@@ -3,7 +3,7 @@ import { push } from 'react-router-redux'
 import authActions from './authActions';
 import { fetchJSON, verifyToken } from './authServices';
 
-import { authMock } from './mockedAuthServices';
+import { authMock, tokenVerifyMock } from './mockedAuthServices';
 
 export function* authorizeWatcher() {
   yield takeLatest(authActions.AUTH_REQUEST, authorizeRunner)
@@ -39,20 +39,19 @@ export function* verifyTempGoogleTokenWatcher() {
 };
 
 export function* verifyTempGoogleTokenRunner(action) {
-  const payload = action.payload;
-  console.log('In saga, payload:', payload)
+  const tempToken = action.tempToken;
   const options = {
-    body: JSON.stringify({ idtoken: payload.tempToken }),
+    body: JSON.stringify({ idToken: tempToken }),
     method: 'POST',
     headers: { 'Content-Type': 'application/json' } 
   }
-  console.log('options:', options)
   try {
     // const { serverToken } = yield call(verifyToken, options); // Real call to the server.
-    const { serverToken } = yield call(tokenVerifyMock, options); // Mock call.
-    yield put({ type: authActions.VERIFY_TEMP_TOKEN_SUCCESS, payload: serverToken });
+    const mockedResponse = yield call(tokenVerifyMock, options); // Mock call.
+    yield put({ type: authActions.VERIFY_TEMP_TOKEN_SUCCESS, token: mockedResponse.token });
     // do I need to do something with the cookie here?
-    localStorage.setItem('token', serverToken);
+    debugger;
+    localStorage.setItem('token', mockedResponse.token);
     yield put(push('/'))
   } catch (error) {
     let message;

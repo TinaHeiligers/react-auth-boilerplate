@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { GOOGLE_CLIENT_ID } from '../redux/auth/constants'; // TODO: extract .env and place this is there. 
 import authActions from '../redux/auth/authActions';
@@ -14,8 +15,7 @@ class SignInWithGoogle extends Component {
     const authResponse = googleAuth.getAuthResponse();
     console.log('authResponse:', authResponse)
     const idToken = authResponse.id_token; // this is the item we need to send to the server
-    console.log('id_token:', idToken)
-    this.props.verifyTempGToken(idToken);
+    this.props.verifyTempGoogleToken(idToken);
   }
 
   responseGoogle = (response) => {
