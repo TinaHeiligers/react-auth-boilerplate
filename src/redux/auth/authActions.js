@@ -19,7 +19,7 @@ const authActions = {
   }),
   authError: (error = 'error') => ({
     type: authActions.AUTH_FAILURE,
-    error,
+    error: error,
   }),
   logOut: () => ({
     type: authActions.LOG_OUT,
