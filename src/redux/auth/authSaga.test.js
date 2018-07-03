@@ -87,7 +87,7 @@ describe('auth saga -> logOutWatcher', () => {
     expect(sagaGen.next()).toEqual(done);
   });
 });
-describe.only('auth saga -> logOutRunner', () => {
+describe('auth saga -> logOutRunner', () => {
   let sagaGen;
   it('3) should push to the root url', () => {
     sagaGen = logOutRunner();
