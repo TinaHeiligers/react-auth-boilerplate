@@ -21,14 +21,28 @@
     "redux-immutable": "^4.0.0",
     "redux-saga": "^0.16.0"
   },
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "redux-logger": "^3.0.6"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepush": "npm test -- --coverage"
   },
-  "devDependencies": {
-    "husky": "^0.14.3",
-    "redux-logger": "^3.0.6"
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ],
+    "setupFiles": [
+      "<rootDir>/src/setupTests.js"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/?(*.)(spec|test).js?(x)"
+    ],
+    "testEnvironment": "node",
+    "testURL": "http://localhost",
   }
 }
