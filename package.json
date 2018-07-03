@@ -22,7 +22,7 @@
     "redux-saga": "^0.16.0"
   },
   "scripts": {
-    "prepush": "react-scripts test --env=jsdom",
+    "prepush": ["test"],
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
