@@ -25,7 +25,7 @@
     "redux-logger": "^3.0.6"
   },
   "scripts": {
-    "precommit": "yarn test -- --coverage",
+    "precommit": "npm test -- --coverage",
     "prepush": "npm test -- --coverage",
     "start": "react-scripts start",
     "build": "react-scripts build",
