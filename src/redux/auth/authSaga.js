@@ -20,8 +20,8 @@ export function* authorizeBasicRunner(action) {
   try {
     // const { token } = yield call(fetchJSON, options); // Real call to the server.
     const result = yield call(authMock, payload.login, payload.password); // Mock call.
-    yield put({ type: authActions.AUTH_SUCCESS, payload: result });
-    localStorage.setItem('token', result);
+    yield put({ type: authActions.AUTH_SUCCESS, token: result.token });
+    localStorage.setItem('token', result.token);
     // add the cookie
     yield put(push('/'))
   } catch (error) {
@@ -31,8 +31,6 @@ export function* authorizeBasicRunner(action) {
       case 401: message = 'Invalid credentials'; break;
       default: message = 'Something went wrong :-(';
     }
-    console.log('ERROR', error)
-    console.log('MESSAGE', message)
     yield put({ type: authActions.AUTH_FAILURE, error: message });
     localStorage.removeItem('token');
   }
