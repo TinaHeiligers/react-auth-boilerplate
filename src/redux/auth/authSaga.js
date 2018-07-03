@@ -5,11 +5,11 @@ import { fetchJSON, verifyToken } from './authServices';
 
 import { authMock, tokenVerifyMock } from './mockedAuthServices';
 
-export function* authorizeWatcher() {
-  yield takeLatest(authActions.AUTH_REQUEST, authorizeRunner)
+export function* authorizeBasicWatcher() {
+  yield takeLatest(authActions.AUTH_REQUEST, authorizeBasicRunner)
 };
 
-export function* authorizeRunner(action) {
+export function* authorizeBasicRunner(action) {
   const payload = action.payload;
   // for real api calls
   const options = {
@@ -22,6 +22,7 @@ export function* authorizeRunner(action) {
     const { token } = yield call(authMock, payload.login, payload.password); // Mock call.
     yield put({ type: authActions.AUTH_SUCCESS, payload: token });
     localStorage.setItem('token', token);
+    // add the cookie
     yield put(push('/'))
   } catch (error) {
     let message;
@@ -73,7 +74,7 @@ export function* logOutRunner() {
 
 export default function* authSagas() {
   yield all([
-    fork(authorizeWatcher),
+    fork(authorizeBasicWatcher),
     fork(verifyTempGoogleTokenWatcher),
     fork(logOutWatcher),
   ]);
