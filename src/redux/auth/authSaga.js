@@ -62,7 +62,7 @@ export function* verifyTempGoogleTokenRunner(action) {
       case 401: message = 'Invalid credentials'; break;
       default: message = 'Something went wrong :-(';
     }
-    yield put({ type: authActions.AUTH_FAILURE, payload: message });
+    yield put({ type: authActions.AUTH_FAILURE, error: message });
     // set any cookies to an expiry date in the past.
     localStorage.removeItem('token');
   }
@@ -71,6 +71,7 @@ export function* logOutWatcher() {
   yield takeLatest(authActions.LOG_OUT, logOutRunner)
 }
 export function* logOutRunner() {
+  localStorage.removeItem('token');
   yield put(push('/'));
 }
 

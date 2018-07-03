@@ -16,7 +16,9 @@ const authReducer = (state = initialState, action) => {
       return state.set('error', action.error);
     }
     case authActions.LOG_OUT: {
-      return state.set('token', null);
+      const removedTokenState = state.set('token', null);
+      const removedGoogleTempTokenState = removedTokenState.set('googleTempToken', null);
+      return removedGoogleTempTokenState;
     }
     case authActions.AUTH_FAILURE_EMAIL_NOT_VALID: {
       return state.set('error', action.error);
