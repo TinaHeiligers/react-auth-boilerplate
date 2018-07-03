@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { GoogleLogout } from 'react-google-login';
 import { history } from  '../redux/store';
 import { ConnectedRouter } from 'react-router-redux';
 import authActions from '../redux/auth/authActions';
@@ -19,11 +20,24 @@ class Restricted extends Component {
         <div>
           <p>Nav bar goes here</p>
           <h1>Restricted</h1>
+          { this.props.googleTempToken ?
+            <GoogleLogout
+              buttonText="Logout"
+              onLogoutSuccess={this.onLogOut}
+            >
+            </GoogleLogout>
+          :
           <button onClick={this.onLogOut}>Log Out</button>
+          }
         </div>
       </ConnectedRouter>
     )
   }
 }
-export default connect(null, { logOut })(Restricted);
-
+export default connect(
+  state => ({
+    token: state.getIn(['auth', 'token']),
+    googleTempToken: state.getIn(['auth', 'googleTempToken']),
+  }), { 
+    logOut, 
+})(Restricted);

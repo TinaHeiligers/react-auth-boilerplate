@@ -15,7 +15,8 @@ export function* authorizeBasicRunner(action) {
   const options = {
     body: JSON.stringify({login: payload.login, password: payload.password}),
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' } 
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include'
   }
   try {
     // const { token } = yield call(fetchJSON, options); // Real call to the server.
@@ -44,7 +45,8 @@ export function* verifyTempGoogleTokenRunner(action) {
   const options = {
     body: JSON.stringify({ idToken: tempToken }),
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' } 
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include'
   }
   try {
     // const { serverToken } = yield call(verifyToken, options); // Real call to the server.
