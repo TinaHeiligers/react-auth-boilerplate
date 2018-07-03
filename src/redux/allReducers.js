@@ -18,4 +18,4 @@ const rootReducer = (state, action) => {
   return allReducers(state, action)
 }
 
-export default allReducers;
+export default rootReducer;
