@@ -25,10 +25,10 @@
     "redux-logger": "^3.0.6"
   },
   "scripts": {
+    "prepush": "npm test -- --coverage",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "prepush": "npm test -- --coverage"
+    "eject": "react-scripts eject"
   }
 }
