@@ -25,8 +25,7 @@
     "redux-logger": "^3.0.6"
   },
   "scripts": {
-    "precommit": "npm test -- --coverage",
-    "prepush": "npm test -- --coverage",
+    "prepush": "npm test ci=true -- --coverage",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
