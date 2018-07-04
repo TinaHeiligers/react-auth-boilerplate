@@ -23,6 +23,7 @@
     "redux-saga": "^0.16.0"
   },
   "devDependencies": {
+    "husky": "^0.14.3",
     "redux-logger": "^3.0.6"
   },
   "scripts": {
