@@ -16,9 +16,6 @@ class SignInWithGoogle extends Component {
     this.props.verifyTempGoogleToken(idToken);
   }
 
-  responseGoogle = (response) => {
-    console.log(response);
-  }
   render() {
     return (
       <div>

@@ -1,8 +1,12 @@
 import { call, put, takeLatest, all, fork } from 'redux-saga/effects';
 import { push } from 'react-router-redux'
 import authActions from './authActions';
-import { fetchJSON, verifyToken } from './authServices';
-import { loginAPI } from './authServices';
+// import { 
+//   fetchLoginAPI,
+//   axiosLoginAPI, 
+//   fetchVerifyToken,
+//   axiosVerifyToken,
+// } from './authServices';
 
 import { authMock, tokenVerifyMock } from './mockedAuthServices';
 
@@ -14,13 +18,13 @@ export function* authorizeBasicRunner(action) {
   const payload = action.payload;
   // for real api calls
   const fetchOptions = {
-    body: JSON.stringify({login: payload.login, password: payload.password}),
+    body: JSON.stringify({ login: payload.login, password: payload.password }),
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include'
   }
   const axiosOptions = {
-    data: JSON.stringify({login: payload.login, password: payload.password}),
+    data: JSON.stringify({ login: payload.login, password: payload.password }),
     headers: { 'Content-Type': 'application/json' },
     transformResponse: [(response) => response.json()],
     withCredentials: true,
@@ -50,22 +54,27 @@ export function* verifyTempGoogleTokenWatcher() {
 
 export function* verifyTempGoogleTokenRunner(action) {
   const tempToken = action.tempToken;
+  /* the tempToken is a JWT 
+    Send this token to your server (preferably as an Authorization header)
+    Have your server decode the id_token by using a common JWT library
+     such as jwt-simple or 
+     by sending a GET request to https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=YOUR_TOKEN_HERE
+    The returned decoded token should have an hd key equal to the hosted domain you'd like to restrict to.*/
   const fetchOptions = {
-    body: JSON.stringify({ idToken: tempToken }),
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Authorization': tempToken },
     credentials: 'include'
   }
   const axiosOptions = {
-    data: JSON.stringify({ idToken: tempToken }),
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Authorization': tempToken },
     transformResponse: [(response) => response.json()],
     withCredentials: true,
   }
   try {
     // const { serverToken } = yield call(fetchVerifyToken, fetchOptions); // Real call to the server.
     // const result = yield call(axiosVerifyToken, axiosOptions) // Real call to the server using axios.
-    const mockedResponse = yield call(tokenVerifyMock, options); // Mock call.
+    const mockedResponse = yield call(tokenVerifyMock, fetchOptions); // Mock call.
+    console.log('verifyTempGoogleTokenRunner mockedResponse', mockedResponse)
     yield put({ type: authActions.VERIFY_TEMP_TOKEN_SUCCESS, token: mockedResponse.token });
     // do I need to do something with the cookie here?
     localStorage.setItem('token', mockedResponse.token);
