@@ -16,9 +16,6 @@ class SignInWithGoogle extends Component {
     this.props.verifyTempGoogleToken(idToken);
   }
 
-  responseGoogle = (response) => {
-    console.log(response);
-  }
   render() {
     return (
       <div>
@@ -26,9 +23,10 @@ class SignInWithGoogle extends Component {
           <h1>Sign In</h1>
           <GoogleLogin
             clientId={GOOGLE_CLIENT_ID}
-            buttonText="Login"
+            buttonText="Login with Google"
             onSuccess={this.onSignIn}
             onFailure={this.onSignInFailure}
+            isSignedIn={true}
         />
         </div>
       </div>
