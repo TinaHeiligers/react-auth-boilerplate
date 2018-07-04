@@ -9,21 +9,6 @@ import { authMock, tokenVerifyMock } from './mockedAuthServices';
 export function* authorizeBasicWatcher() {
   yield takeLatest(authActions.AUTH_REQUEST, authorizeBasicRunner)
 };
-export function* authorizeBasicRunner2(action) {
-  const email = action.payload.login;
-  const password = action.payload.password;
-  try {
-    const result = yield call(loginAPI, payload.email, payload.password);
-    // the API call should return a user ID that we can use to verify they have logged in. We should not be storing JWT tokens in the redux store or on local/session storage.
-    // the JWT token needs to be a cookie.
-    yield put({ type: authActions.AUTH_SUCCESS, token: result.token });
-    // replace with a cookie
-    localStorage.setItem('token', result.token);
-    yield put(push('/'))
-  } catch(err) {
-      yield put({ type: actions.LOGIN_ERROR, error: err })
-  }
-};
 
 export function* authorizeBasicRunner(action) {
   const payload = action.payload;
@@ -65,14 +50,21 @@ export function* verifyTempGoogleTokenWatcher() {
 
 export function* verifyTempGoogleTokenRunner(action) {
   const tempToken = action.tempToken;
-  const options = {
+  const fetchOptions = {
     body: JSON.stringify({ idToken: tempToken }),
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include'
   }
+  const axiosOptions = {
+    data: JSON.stringify({ idToken: tempToken }),
+    headers: { 'Content-Type': 'application/json' },
+    transformResponse: [(response) => response.json()],
+    withCredentials: true,
+  }
   try {
-    // const { serverToken } = yield call(verifyToken, options); // Real call to the server.
+    // const { serverToken } = yield call(fetchVerifyToken, fetchOptions); // Real call to the server.
+    // const result = yield call(axiosVerifyToken, axiosOptions) // Real call to the server using axios.
     const mockedResponse = yield call(tokenVerifyMock, options); // Mock call.
     yield put({ type: authActions.VERIFY_TEMP_TOKEN_SUCCESS, token: mockedResponse.token });
     // do I need to do something with the cookie here?

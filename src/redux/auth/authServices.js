@@ -2,7 +2,7 @@
 import config from '../../config.js';
 const baseURL = config.apiUrl;
 
-export const fetchJSON = (options = {}) => 
+export const fetchJSON = (options = {}) => {
   new Promise((resolve, reject) => {
     return fetch(`${baseURL}/loginBasic`, options)
       .then(response => (response.status !== 200 ? reject(response) : response))
@@ -10,7 +10,8 @@ export const fetchJSON = (options = {}) =>
       .then(response => resolve(response))
       .catch(error => reject(error));
   });
-export const verifyToken = (baseURL, options = {}) => {
+}
+export const fetchVerifyToken = (baseURL, options = {}) => {
   new Promise((resolve, reject) => {
     return fetch(`${baseURL}/verifyGoogleTempToken`, options)
       .then(response => (response.status !== 200 ? reject(response) : response))
@@ -23,15 +24,18 @@ export const verifyToken = (baseURL, options = {}) => {
 //https://developers.google.com/identity/sign-in/web/backend-auth
 
 // REPLACING THESE METHODS WITH AXIOS:
-export const loginAPI = (email, password) => 
+export const loginAPI = (options) => {
   new Promise((resolve, reject) => {
-  const payload = { email, password }
-  return axios.post(`${config.baseUrl}/loginWithEmail`, payload, 
-    options = { 
-      headers: { 'Content-Type': 'application/json' },
-      transformResponse: [(response) => response.json()],
-      withCredentials: true,
-    })
-  .then(resolve => resolve(response))
-  .catch(error => reject(error));
-});
+    return axios.post(`${config.baseUrl}/loginWithEmail`, options)
+    .then(resolve => resolve(response))
+    .catch(error => reject(error));
+  });
+}
+
+export const axisVerifyToken = (options) => {
+  new Promise((resolve, reject) => {
+    return axios.post(`${baseURL}/verifyGoogleTempToken`, options)
+    .then(resolve => resolve(response))
+    .catch(error => reject(error));
+  });
+}
