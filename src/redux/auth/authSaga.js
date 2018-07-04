@@ -2,11 +2,27 @@ import { call, put, takeLatest, all, fork } from 'redux-saga/effects';
 import { push } from 'react-router-redux'
 import authActions from './authActions';
 import { fetchJSON, verifyToken } from './authServices';
+import { loginAPI } from './authServices';
 
 import { authMock, tokenVerifyMock } from './mockedAuthServices';
 
 export function* authorizeBasicWatcher() {
   yield takeLatest(authActions.AUTH_REQUEST, authorizeBasicRunner)
+};
+export function* authorizeBasicRunner2(action) {
+  const email = action.payload.login;
+  const password = action.payload.password;
+  try {
+    const result = yield call(loginAPI, payload.email, payload.password);
+    // the API call should return a user ID that we can use to verify they have logged in. We should not be storing JWT tokens in the redux store or on local/session storage.
+    // the JWT token needs to be a cookie.
+    yield put({ type: authActions.AUTH_SUCCESS, token: result.token });
+    // replace with a cookie
+    localStorage.setItem('token', result.token);
+    yield put(push('/'))
+  } catch(err) {
+      yield put({ type: actions.LOGIN_ERROR, error: err })
+  }
 };
 
 export function* authorizeBasicRunner(action) {
