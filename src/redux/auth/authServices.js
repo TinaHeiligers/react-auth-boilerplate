@@ -1,17 +1,18 @@
 // TODO: convert to axios, see https://kapeli.com/cheat_sheets/Axios.docset/Contents/Resources/Documents/index
 import config from '../../config.js';
+const baseURL = config.apiUrl;
 
 export const fetchJSON = (options = {}) => 
   new Promise((resolve, reject) => {
-    return fetch(`${config.apiUrl}/loginBasic`, options)
+    return fetch(`${baseURL}/loginBasic`, options)
       .then(response => (response.status !== 200 ? reject(response) : response))
       .then(response => response.json())
       .then(response => resolve(response))
       .catch(error => reject(error));
   });
-export const verifyToken = (config.apiUrl, options = {}) => {
+export const verifyToken = (baseURL, options = {}) => {
   new Promise((resolve, reject) => {
-    return fetch(`${config.apiUrl}/verifyGoogleTempToken`, options)
+    return fetch(`${baseURL}/verifyGoogleTempToken`, options)
       .then(response => (response.status !== 200 ? reject(response) : response))
       .then(response => response.json())
       .then(response => resolve(response))
@@ -36,7 +37,7 @@ export const loginAPI = (email, password) =>
 axios.post(url[, data[, config]]);
 When using the alias methods url, method, and data properties don't need to be specified in config.
 where config has the following options:
-*/
+
 let axiosConfig = {
   {
   // `url` is the server URL that will be used for the request
@@ -81,7 +82,7 @@ let axiosConfig = {
   paramsSerializer: function(params) {
     return Qs.stringify(params, {arrayFormat: 'brackets'})
   },
- 
+  
   // `timeout` specifies the number of milliseconds before the request times out.
   // If the request takes longer than `timeout`, the request will be aborted.
   timeout: 1000,
@@ -93,7 +94,7 @@ let axiosConfig = {
   // `adapter` allows custom handling of requests which makes testing easier.
   // Return a promise and supply a valid response (see lib/adapters/README.md).
   adapter: function (config) {
-    /* ... */
+    //something
   },
  
   // `auth` indicates that HTTP Basic auth should be used, and supplies credentials.
@@ -172,3 +173,4 @@ let axiosConfig = {
   })
 }
 }
+*/
