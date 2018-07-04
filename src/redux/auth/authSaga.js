@@ -28,14 +28,21 @@ export function* authorizeBasicRunner2(action) {
 export function* authorizeBasicRunner(action) {
   const payload = action.payload;
   // for real api calls
-  const options = {
+  const fetchOptions = {
     body: JSON.stringify({login: payload.login, password: payload.password}),
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include'
   }
+  const axiosOptions = {
+    data: JSON.stringify({login: payload.login, password: payload.password}),
+    headers: { 'Content-Type': 'application/json' },
+    transformResponse: [(response) => response.json()],
+    withCredentials: true,
+  }
   try {
-    // const { token } = yield call(fetchJSON, options); // Real call to the server.
+    // const { token } = yield call(fetchJSON, fetchOptions); // Real call to the server using fetch.
+    // const result = yield call(loginAPI, axiosOptions) // Real call to the server using axios.
     const result = yield call(authMock, payload.login, payload.password); // Mock call.
     yield put({ type: authActions.AUTH_SUCCESS, token: result.token });
     localStorage.setItem('token', result.token);
