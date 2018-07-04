@@ -20,14 +20,14 @@ class SignInWithGoogle extends Component {
     return (
       <div>
         <div>
-          <h1>Sign In</h1>
+          <h1>Log In</h1>
           <GoogleLogin
             clientId={GOOGLE_CLIENT_ID}
-            buttonText="Login with Google"
+            buttonText="Sign in with Google"
             onSuccess={this.onSignIn}
             onFailure={this.onSignInFailure}
             isSignedIn={true}
-        />
+          />
         </div>
       </div>
     );

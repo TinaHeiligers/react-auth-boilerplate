@@ -30,6 +30,7 @@ class SignInBasic extends PureComponent {
         {error && <div style={{ color: 'red' }}>{error}</div>}
           <form onSubmit={(e) => this.loginSubmit(e)}>
             <div>
+              <h1>Log In</h1>
               <input
                 ref={_ref => this.login = _ref}
                 type="email"
