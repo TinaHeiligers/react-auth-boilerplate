@@ -1,3 +1,23 @@
+# Quick Start
+Clone the repo to your local machine:
+`git clone https://github.com/<YourRepo>/react-auth-boilerplate.git`
+Install the packages (I use yarn version 1.7.0):
+`yarn install`
+Run the tests:
+`yarn test`
+The project currently has mocked out calls to a backend but makes a real call to Google when clicking the "Login with Google" button. Initiating the call will require a GOOGLE_CLIENT_ID that is not checked in to github. 
+Review [Google's OAuth 2.0 documentation](https://developers.google.com/identity/protocols/OAuth2).
+Set up an [oauth account](https://github.com/hapijs/bell/blob/master/API.md) and follow the instructions on how to get a cookie password
+To set up additional Google provider keys, see the [Auth0 docs](https://auth0.com/docs/connections/social/devkeys)
+ - `GOOGLE_CLIENT_ID`
+ - `GOOGLE_CLIENT_SECRET`
+Add the GOOGLE_CLIENT_ID either directly in the 'clientId' prop on <GoogleLogin /> (not recommended) or to a 'constants.js' file within the folder 'src/redux/auth'.
+While this project does not currently rely on a backend, one is being build.
+Run the project:
+`yarn start`.
+Use the following credentials when logging in with email and password: 
+email pattern = /^.+@example\.com$/, password = password.
+
 # Troubleshooting
 If you get the error: 'idpiframe_initialization_failed' in Chrome, try a different browser. If it works there, then clear your Chrome cache (warning: this will log you out of all browser apps), refresh and try again.
 
