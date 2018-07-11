@@ -40,3 +40,12 @@ export const axiosVerifyToken = (options) => {
     .catch(error => reject(error));
   });
 }
+export const axiosLoginGoogle = () => {
+  new Promise((resolve, reject) => {
+    const result = axios.post(`${baseURL}/auth/google`)
+    .then(resolve)
+    .catch(error => reject(error));
+    console.log("In axiosLoginGoogle", result)
+    return result;
+  });
+}

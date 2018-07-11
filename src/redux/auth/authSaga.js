@@ -1,12 +1,12 @@
 import { call, put, takeLatest, all, fork } from 'redux-saga/effects';
 import { push } from 'react-router-redux'
 import authActions from './authActions';
-// import { 
+import { 
 //   fetchLoginAPI,
-//   axiosLoginAPI, 
+  axiosLoginAPI, 
 //   fetchVerifyToken,
 //   axiosVerifyToken,
-// } from './authServices';
+} from './authServices';
 
 import { authMock, tokenVerifyMock } from './mockedAuthServices';
 
@@ -31,8 +31,8 @@ export function* authorizeBasicRunner(action) {
   }
   try {
     // const { token } = yield call(fetchJSON, fetchOptions); // Real call to the server using fetch.
-    // const result = yield call(loginAPI, axiosOptions) // Real call to the server using axios.
-    const result = yield call(authMock, payload.login, payload.password); // Mock call.
+    const result = yield call(axiosLoginAPI, axiosOptions) // Real call to the server using axios.
+    // const result = yield call(authMock, payload.login, payload.password); // Mock call.
     yield put({ type: authActions.AUTH_SUCCESS, token: result.token });
     localStorage.setItem('token', result.token);
     // add the cookie
