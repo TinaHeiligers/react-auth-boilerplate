@@ -35,27 +35,4 @@ describe.only('auth reducer', () => {
     const newState = authReducer(defaultState, testAction);
     expect(newState.get('error')).toEqual(testError)
   });
-  it('updates state on VERIFY_TEMP_TOKEN_REQUEST', () => {
-    const testToken = '1234';
-    const testAction = authActions.verifyTempGoogleToken(testToken);
-    const newState = authReducer(defaultState, testAction);
-    expect(newState.get('googleTempToken')).toEqual(testToken);
-  });
-  it('updates state on VERIFY_TEMP_TOKEN_SUCCESS', () => {
-    const testToken = '1234';
-    const testAction = authActions.verifyTempGoogleTokenSuccess(testToken);
-    const newState = authReducer(defaultState, testAction);
-    expect(newState.get('token')).toEqual(testToken);
-  });
-  it('updates state on AUTH_FAILURE_GOOGLE with an error message', () => {
-    const testError = new Error('blah')
-    const testAction = authActions.authGoogleFailure(testError);
-    const newState = authReducer(defaultState, testAction);
-    expect(newState.get('error')).toEqual(testError)
-  });
-  it('updates state on AUTH_FAILURE_GOOGLE without an error message', () => {
-    const testAction = authActions.authGoogleFailure();
-    const newState = authReducer(defaultState, testAction);
-    expect(newState.get('error')).toEqual('google auth error')
-  });
 });

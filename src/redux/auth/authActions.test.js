@@ -62,21 +62,6 @@ describe.only('>>Auth Action Creator', () => {
       token: testJWTToken,
     });
   });
-  it('++actionCreator authGoogleFailure with an error message', () => {
-    const testMessage = 'An Error Message';
-    const testauthGoogleFailure = authActions.authGoogleFailure(testMessage);
-    expect(testauthGoogleFailure).toEqual({
-      type: authActions.AUTH_FAILURE_GOOGLE,
-      error: testMessage,
-    });
-  });
-  it('++actionCreator authGoogleFailure without an error message', () => {
-    const testauthGoogleFailure = authActions.authGoogleFailure();
-    expect(testauthGoogleFailure).toEqual({
-      type: authActions.AUTH_FAILURE_GOOGLE,
-      error: 'google auth error',
-    });
-  });
 });
 // TODO: add tests for:
 /* 
