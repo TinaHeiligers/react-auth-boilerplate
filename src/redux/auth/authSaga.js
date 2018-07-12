@@ -76,7 +76,7 @@ export function* logOutRunner() {
 
 export default function* authSagas() {
   yield all([
-    fork(authorizeEmailPasswordRunnerWatcher),
+    fork(authorizeEmailPasswordWatcher),
     fork(axiosLoginGoogleWatcher),
     fork(logOutWatcher),
   ]);

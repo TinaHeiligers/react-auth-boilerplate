@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import { GOOGLE_CLIENT_ID } from '../redux/auth/constants'; // TODO: extract .env and place this is there. 
 import authActions from '../redux/auth/authActions';
-import { axiosLoginGoogle } from '../redux/auth/authServices';
+const { axiosLoginGoogle } = authActions;
 
 class SignInWithGoogle extends Component {
   loginToGoogleThroughServer = () => {
