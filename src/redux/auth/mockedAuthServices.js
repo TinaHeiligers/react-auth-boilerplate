@@ -1,7 +1,7 @@
 // MOCKED SERVICES
 import { validateEmail } from '../../utils/validations';
 
-export const authMock = (login, password) =>
+export const emailPasswordAuthMock = (login, password) =>
   new Promise((resolve, reject) => {
     if (validateEmail(login) && password === 'password') {
       resolve({ token: 'secret-token' });

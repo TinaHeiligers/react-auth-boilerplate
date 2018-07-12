@@ -6,9 +6,8 @@ const authActions = {
   //Email and password log in
   AUTH_FAILURE_EMAIL_NOT_VALID: 'AUTH_FAILURE_EMAIL_NOT_VALID',
   // Google log in
-  VERIFY_TEMP_TOKEN_REQUEST: 'VERIFY_TEMP_TOKEN_REQUEST',
-  VERIFY_TEMP_TOKEN_SUCCESS: 'VERIFY_TEMP_TOKEN_SUCCESS',
-  AUTH_FAILURE_GOOGLE: 'AUTH_FAILURE_GOOGLE',
+  AXIOS_LOGIN_GOOGLE_REQUEST: 'AXIOS_LOGIN_GOOGLE_REQUEST',
+
   authorize: (login, password) => ({
     type: authActions.AUTH_REQUEST,
     payload: { login, password }
@@ -28,18 +27,13 @@ const authActions = {
     type: authActions.AUTH_FAILURE_EMAIL_NOT_VALID,
     error: message,
   }),
-  // GOOGLE LOG IN TEMP TOKEN: 
-  verifyTempGoogleToken: (tempIdToken) => ({
-    type: authActions.VERIFY_TEMP_TOKEN_REQUEST,
-    tempToken: tempIdToken,
+  axiosLoginGoogle: () => ({
+    type: authActions.AXIOS_LOGIN_GOOGLE_REQUEST,
   }),
-  verifyTempGoogleTokenSuccess: (token) => ({
-    type: authActions.VERIFY_TEMP_TOKEN_SUCCESS,
-    token,
-  }),
-  authGoogleFailure: (error = 'google auth error') => ({
-    type: authActions.AUTH_FAILURE_GOOGLE,
-    error,
-  }),
+  axiosLoginGoogleSuccess: (token) => ({
+    type: authActions.AXIOS_LOGIN_GOOGLE_SUCCESS,
+    token, //will be a JWT token as the payload, we also get it in the header as Authorization and in the cookie
+  })
+  
 };
 export default authActions;
