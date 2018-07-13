@@ -13,6 +13,7 @@ class Restricted extends Component {
   onLogOut() {
     this.props.logOut();
   }
+  
   render() {
     const allCookies = document.cookie;
     console.log('allCookies:', allCookies);
