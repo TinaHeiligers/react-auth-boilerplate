@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { GoogleLogin } from 'react-google-login';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { GOOGLE_CLIENT_ID } from '../redux/auth/constants'; // TODO: extract .env and place this is there. 
+import config from '../config.js';
 
 class SignInWithGoogle extends Component {
   setCookieMakeRequest() {
     // set the cookie,
-    document.cookie = `redirect=http://localhost:3000/restricted`;
-    window.location=`http://localhost:4000/auth/google`;
+    document.cookie = `redirect=${config.baseUrl}/restricted`;
+    window.location=`${config.apiUrl}/auth/google`;
 
   }
   render() {

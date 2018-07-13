@@ -5,6 +5,8 @@ import LoginOptions from '../authComponents/loginOptions';
 
 class Public extends Component {
   render() {
+    const allCookies = document.cookie;
+    console.log('allCookies:', allCookies);
     return(
       <ConnectedRouter history={history}>
         <div style={ { margin: '10vh auto', padding: '10vh', textAlign:'center', width: '20vw', border: '1px solid goldenrod' } }>
