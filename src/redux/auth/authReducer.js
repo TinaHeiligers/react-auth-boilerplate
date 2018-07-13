@@ -1,6 +1,6 @@
 import { Map } from 'immutable';
 import authActions from './authActions';
-
+// add in a state for cookies (redirect and session)
 const initialState = new Map({
   token: null,
   googleTempToken: null,

@@ -25,3 +25,4 @@ sagaMiddleware.run(rootSaga);
 store.dispatch(push('/'));
 
 export { store, history };
+// coookies: https://www.npmjs.com/package/redux-cookies-middleware
