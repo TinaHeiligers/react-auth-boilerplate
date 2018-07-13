@@ -5,6 +5,8 @@ const initialState = new Map({
   token: null,
   googleTempToken: null,
   error: null,
+  redirect: null, // the login redirect url
+  session: null, // the JWT session cookie
 });
 
 const authReducer = (state = initialState, action) => {
