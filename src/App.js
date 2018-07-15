@@ -7,18 +7,18 @@ import Public from './routingComponents/Public';
 class MainApp extends Component {
   componentDidMount() {
     const allCookies = document.cookie;
-    // const sessionCookieIndex = allCookies.
-    const redirectCookieIndex = allCookies.match("redirect=").index
-    const sessionCookieIndex = allCookies.match("session=").index
-    const redirect = allCookies.substring(redirectCookieIndex, sessionCookieIndex)
-    const session = allCookies.substring(sessionCookie)
-    
-    console.log(redirect)
-    console.log(session)
-    // find the index of the 'redirect' cookie
-    // find the index of the session cookie
-  
-    
+    console.log('allCookies', allCookies)
+    if (allCookies) {
+      const cookiesArray = allCookies.split(';')
+      const cookiesObjects = cookiesArray.map((cookieString) => {
+        return {
+          name: cookieString.split('=')[0],
+          value: cookieString.split('=')[1],
+        };
+      });
+      console.log('cookiesObjects', cookiesObjects)
+      // send these to the redux store.
+    }
   }
   render() {
     if (this.props.token) {
