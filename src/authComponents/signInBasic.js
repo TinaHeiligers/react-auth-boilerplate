@@ -7,8 +7,12 @@ import authActions from '../redux/auth/authActions';
 const { authorize, authFailureEmailNotValid } = authActions;
 
 class SignInBasic extends PureComponent {
+  setLocationCookie() {
+    document.cookie = `redirect=${config.baseUrl}/restricted`;
+  }
   loginSubmit(e) {
     e.preventDefault();
+    this.setLocationCookie();
     const login = this.login.value;
     const password = this.password.value;
     if (validateEmail(login)) {
@@ -61,5 +65,10 @@ export default connect(
   state => ({
     token: state.getIn(['auth', 'token']),
     error: state.getIn(['auth', 'error'])
-  }), { authorize, authFailureEmailNotValid }
-)(SignInBasic);
+  }), { 
+    authorize, 
+    authFailureEmailNotValid,
+  })(SignInBasic);
+// store a cookie on where we want to go back to,
+// TODO: api server picks up the cookie and looks for a redirect url
+// TODO: that we pass to the redirect

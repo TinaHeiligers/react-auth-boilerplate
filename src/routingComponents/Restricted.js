@@ -15,6 +15,7 @@ class Restricted extends Component {
     this.props.logOut();
   }
   deleteAllCookies() {
+    // ideally, 
     let cookies = document.cookie.split(";");
     for (var i = 0; i < cookies.length; i++) {
       let cookie = cookies[i];
@@ -24,8 +25,6 @@ class Restricted extends Component {
     }
   }
   render() {
-    const allCookies = document.cookie;
-    console.log('allCookies:', allCookies);
     return(
       <ConnectedRouter history={history}>
         <div>
