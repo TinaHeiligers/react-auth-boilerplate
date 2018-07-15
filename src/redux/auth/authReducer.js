@@ -18,9 +18,11 @@ const authReducer = (state = initialState, action) => {
       return state.set('error', action.error);
     }
     case authActions.LOG_OUT: {
-      const removedTokenState = state.set('token', null);
-      const removedGoogleTempTokenState = removedTokenState.set('googleTempToken', null);
-      return removedGoogleTempTokenState;
+      return state.merge({
+        token: null,
+        googleTempToken: null,
+        session: null,
+      })
     }
     case authActions.AUTH_FAILURE_EMAIL_NOT_VALID: {
       return state.set('error', action.error);
@@ -28,6 +30,18 @@ const authReducer = (state = initialState, action) => {
     case authActions.AXIOS_LOGIN_GOOGLE_SUCCESS: {
       return state.set('token', action.token)
     }
+    case authActions.EXTRACT_COOKIES:
+      const cookiesArray = action.allCookies.split('; ')
+      const cookiesObjects = cookiesArray.map((cookieString) => {
+        return {
+          name: cookieString.split('=')[0],
+          value: cookieString.split('=')[1],
+        };
+      });
+      return state.merge({
+        redirect: cookiesObjects.find((item) => item.name === 'redirect'),
+        session: cookiesObjects.find((item) => item.name === 'session'),
+      })
     default:
       return state;
   }

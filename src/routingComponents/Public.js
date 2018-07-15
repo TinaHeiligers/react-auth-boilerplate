@@ -9,7 +9,7 @@ class Public extends Component {
     console.log('allCookies', allCookies)
     // if (allCookies) {
     
-    //   const redirectCookieIndex = allCookies.match("redirect=").index
+    //   const redirectCookieIndex = allCookies.match("redirect=").index we will get this from the redux store.
     //   const sessionCookieIndex = allCookies.match("session=").index
     //   console.log('Redirect:', allCookies.substring(redirectCookieIndex, sessionCookieIndex))
     //   console.log('Session:', allCookies.substring(sessionCookieIndex))

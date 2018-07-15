@@ -7,6 +7,7 @@ const authActions = {
   AUTH_FAILURE_EMAIL_NOT_VALID: 'AUTH_FAILURE_EMAIL_NOT_VALID',
   // Google log in
   AXIOS_LOGIN_GOOGLE_REQUEST: 'AXIOS_LOGIN_GOOGLE_REQUEST',
+  EXTRACT_COOKIES: 'EXTRACT_COOKIES',
 
   authorize: (login, password) => ({
     type: authActions.AUTH_REQUEST,
@@ -33,7 +34,10 @@ const authActions = {
   axiosLoginGoogleSuccess: (token) => ({
     type: authActions.AXIOS_LOGIN_GOOGLE_SUCCESS,
     token, //will be a JWT token as the payload, we also get it in the header as Authorization and in the cookie
-  })
-  
+  }),
+  extractCookies: (allCookiesString) => ({
+    type: authActions.EXTRACT_COOKIES,
+    allCookies: allCookiesString,
+  }),
 };
 export default authActions;
