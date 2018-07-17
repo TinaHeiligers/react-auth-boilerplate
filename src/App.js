@@ -25,7 +25,7 @@ class MainApp extends Component {
 MainApp.propTypes = {
   token: PropTypes.string,
   session: PropTypes.string,
-  redirect: PropTypes.string,
+  redirect: PropTypes.object,
   extractCookies: PropTypes.func,
 }
 

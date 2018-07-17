@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { validateEmail } from '../utils/validations';
 import authActions from '../redux/auth/authActions';
+import config from '../config.js';
 const { authorize, authFailureEmailNotValid } = authActions;
+
 
 class SignInBasic extends PureComponent {
   setLocationCookie() {

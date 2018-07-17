@@ -3,7 +3,8 @@ import { push } from 'react-router-redux'
 import authActions from './authActions';
 import { 
   loginGoogle,
-  axiosLoginAPI 
+  axiosLoginAPI,
+  loginPassword
 } from './authServices';
 
 import { authMock, emailPasswordAuthMock } from './mockedAuthServices';
@@ -16,13 +17,15 @@ export function* authorizeEmailPasswordRunner(action) {
   const payload = action.payload;
   // for real api calls
 
-  const axiosOptions = {
-    data: JSON.stringify({ login: payload.login, password: payload.password }),
-    headers: { 'Content-Type': 'application/json' },
-    withCredentials: true,
-  }
+  // const axiosOptions = {
+  //   data: JSON.stringify({ login: payload.login, password: payload.password }),
+  //   headers: { 'Content-Type': 'application/json' },
+  //   withCredentials: true,
+  // }
+  const data = { username: payload.login, password: payload.password }
   try {
-    const result = yield call(axiosLoginAPI, axiosOptions) // Real call to the server using axios.
+    const result = yield call(loginPassword, data) // Real call to the server using axios.
+    console.log('the result is:', result)
     // const result = yield call(emailPasswordAuthMock, payload.login, payload.password); // Mock call.
     yield put({ type: authActions.AUTH_SUCCESS, token: result.token });
     localStorage.setItem('token', result.token);
