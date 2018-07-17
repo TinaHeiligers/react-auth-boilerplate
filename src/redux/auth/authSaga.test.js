@@ -1,15 +1,11 @@
 /* global describe, it, expect */
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { push } from 'react-router-redux'
-import { axiosLoginAPI } from './authServices';
-import { emailPasswordAuthMock } from './mockedAuthServices';
+import { loginPassword } from './authServices';
 import authActions from './authActions';
-
 import { 
   authorizeEmailPasswordWatcher,
   authorizeEmailPasswordRunner,
-  verifyTempGoogleTokenWatcher,
-  verifyTempGoogleTokenRunner,
   logOutWatcher,
   logOutRunner,
  } from './authSaga';
@@ -28,15 +24,12 @@ describe('auth saga -> authorizeEmailPasswordWatcher', () => {
 describe('auth saga -> authorizeEmailPasswordRunner', () => {
   let sagaGen;
   it('1) should call the API endpoint given a login and password payload', () => {
-    const testPayload = { login: 'test@example.com', password: 'password' }
-    const testAction = { type: authActions.AUTH_REQUEST, payload: testPayload}
-    const testOptions = {
-      data: JSON.stringify({ login: testPayload.login, password: testPayload.password }),
-      headers: { 'Content-Type': 'application/json' },
-      withCredentials: true,
-    }
+    const testPayload = { username: 'john@example.com', password: 'secret' }
+    
+    const testAction = { type: authActions.AUTH_REQUEST, payload: testPayload }
+    
     sagaGen = authorizeEmailPasswordRunner(testAction);
-    expect(sagaGen.next().value).toEqual(call(axiosLoginAPI, testOptions));
+    expect(sagaGen.next().value).toEqual(call(loginPassword, testPayload));
   });
   it('2) should put the AUTH_SUCCESS action with the token as the payload on successful return of a token from the api call', () => {
     let mockedResponse = { token: 'secret-token' };

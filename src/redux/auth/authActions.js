@@ -9,9 +9,9 @@ const authActions = {
   AXIOS_LOGIN_GOOGLE_REQUEST: 'AXIOS_LOGIN_GOOGLE_REQUEST',
   EXTRACT_COOKIES: 'EXTRACT_COOKIES',
 
-  authorize: (login, password) => ({
+  authorize: (username, password) => ({
     type: authActions.AUTH_REQUEST,
-    payload: { login, password }
+    payload: { username, password }
   }),
   authorizeSuccess: (token) => ({
     type: authActions.AUTH_SUCCESS,

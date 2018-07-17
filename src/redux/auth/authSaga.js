@@ -15,18 +15,9 @@ export function* authorizeEmailPasswordWatcher() {
 
 export function* authorizeEmailPasswordRunner(action) {
   const payload = action.payload;
-  // for real api calls
-
-  // const axiosOptions = {
-  //   data: JSON.stringify({ login: payload.login, password: payload.password }),
-  //   headers: { 'Content-Type': 'application/json' },
-  //   withCredentials: true,
-  // }
-  const data = { username: payload.login, password: payload.password }
+  const data = { username: payload.username, password: payload.password }
   try {
     const result = yield call(loginPassword, data) // Real call to the server using axios.
-    console.log('the result is:', result)
-    // const result = yield call(emailPasswordAuthMock, payload.login, payload.password); // Mock call.
     yield put({ type: authActions.AUTH_SUCCESS, token: result.token });
     localStorage.setItem('token', result.token);
     // add the cookie

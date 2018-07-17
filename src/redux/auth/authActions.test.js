@@ -3,12 +3,12 @@ import authActions from './authActions';
 
 describe.only('>>Auth Action Creator', () => {
   it('++actionCreator authorize', () => {
-    const testLogin = 'test@example.com';
+    const testUsername = 'test@example.com';
     const testPassword = 'password';
-    const testAuthorize = authActions.authorize(testLogin, testPassword);
+    const testAuthorize = authActions.authorize(testUsername, testPassword);
     expect(testAuthorize).toEqual({
       type: authActions.AUTH_REQUEST,
-      payload: { login: testLogin, password: testPassword },
+      payload: { username: testUsername, password: testPassword },
     });
   });
   it('++actionCreator authorizeSuccess', () => {
