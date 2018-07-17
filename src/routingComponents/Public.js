@@ -7,7 +7,7 @@ class Public extends Component {
   render() {
     return(
       <ConnectedRouter history={history}>
-        <div>
+        <div style={ { margin: '10vh auto', padding: '10vh', textAlign:'center', width: '20vw', border: '1px solid goldenrod' } }>
           <h1>Public</h1>
           <LoginOptions />
         </div>

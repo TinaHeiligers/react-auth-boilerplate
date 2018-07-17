@@ -1,53 +1,30 @@
 import React, { Component } from 'react';
-import { GoogleLogin } from 'react-google-login';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { GOOGLE_CLIENT_ID } from '../redux/auth/constants'; // TODO: extract .env and place this is there. 
-import authActions from '../redux/auth/authActions';
-const { verifyTempGoogleToken, authGoogleFailure } = authActions;
+import config from '../config.js';
 
 class SignInWithGoogle extends Component {
-  onSignInFailure = (errorResponse) => {
-    this.props.authGoogleFailure(errorResponse)
-  }
-  onSignIn = (googleAuth) => {
-    const authResponse = googleAuth.getAuthResponse();
-    const idToken = authResponse.id_token; // this is the item we need to send to the server
-    this.props.verifyTempGoogleToken(idToken);
-  }
+  setCookieMakeRequest() {
+    // set the cookie,
+    document.cookie = `redirect=${config.baseUrl}/restricted`;
+    window.location=`${config.apiUrl}/auth/google`;
 
+  }
   render() {
     return (
       <div>
         <div>
-          <h1>Sign In</h1>
-          <GoogleLogin
-            clientId={GOOGLE_CLIENT_ID}
-            buttonText="Login with Google"
-            onSuccess={this.onSignIn}
-            onFailure={this.onSignInFailure}
-            isSignedIn={true}
-        />
+          <h3>Sign In</h3>
+          <button 
+            onClick={this.setCookieMakeRequest}
+            >Login with Google</button>
         </div>
       </div>
     );
   }
 }
-SignInWithGoogle.propTypes = {
-  loading: PropTypes.string,
-  token: PropTypes.string,
-  googleTempToken: PropTypes.string,
-  error: PropTypes.string,
-  verifyTempGoogleToken: PropTypes.func.isRequired,
-  authGoogleFailure: PropTypes.func
-}
-export default connect(
-  state => ({
-    loading: state.getIn(['App', 'loading']),
-    token: state.getIn(['auth', 'token']),
-    googleTempToken: state.getIn(['auth', 'googleTempToken']),
-    error: state.getIn(['auth', 'error'])
-  }), { 
-    verifyTempGoogleToken, 
-    authGoogleFailure,
-})(SignInWithGoogle);
+
+export default SignInWithGoogle;
+// TODO: store a cookie on where we want too goo back to,
+// api server picks up the cookie and looks for a redirect url
+// that we pass to the redirect

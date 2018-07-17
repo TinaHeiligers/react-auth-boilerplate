@@ -6,8 +6,8 @@ import SignInWithGoogle from './signInWithGoogle';
 class LoginOptions extends Component {
   render () {
     return (
-      <div>
-        <ul>
+      <div style={{ margin: '0 auto', width: '20vw' }}>
+        <ul style={ { listStyleType: 'none', paddingLeft: 0 } }>
           <li>
             <Link to="/login/basic">
               Log In With Email

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { GoogleLogout } from 'react-google-login';
 import { history } from  '../redux/store';
 import { ConnectedRouter } from 'react-router-redux';
 import authActions from '../redux/auth/authActions';
@@ -12,7 +11,18 @@ class Restricted extends Component {
     this.onLogOut = this.onLogOut.bind(this);
   }
   onLogOut() {
+    this.deleteAllCookies();
     this.props.logOut();
+  }
+  deleteAllCookies() {
+    // ideally, 
+    let cookies = document.cookie.split(";");
+    for (var i = 0; i < cookies.length; i++) {
+      let cookie = cookies[i];
+      let eqPos = cookie.indexOf("=");
+      let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
   }
   render() {
     return(
@@ -20,15 +30,7 @@ class Restricted extends Component {
         <div>
           <p>Nav bar goes here</p>
           <h1>Restricted</h1>
-          { this.props.googleTempToken ?
-            <GoogleLogout
-              buttonText="Logout"
-              onLogoutSuccess={this.onLogOut}
-            >
-            </GoogleLogout>
-          :
           <button onClick={this.onLogOut}>Log Out</button>
-          }
         </div>
       </ConnectedRouter>
     )
@@ -37,7 +39,6 @@ class Restricted extends Component {
 export default connect(
   state => ({
     token: state.getIn(['auth', 'token']),
-    googleTempToken: state.getIn(['auth', 'googleTempToken']),
   }), { 
-    logOut, 
+    logOut,
 })(Restricted);
