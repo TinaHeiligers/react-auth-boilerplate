@@ -3,7 +3,7 @@ import Immutable from 'immutable';
 import authReducer, { initialState } from './authReducer';
 import authActions from './authActions';
 
-describe.only('auth reducer', () => {
+describe('auth reducer', () => {
   const defaultState = authReducer(initialState, { type: 'unexpected' });
   it('returns an object', () => {
     expect(defaultState).toBeInstanceOf(Object);
@@ -23,11 +23,19 @@ describe.only('auth reducer', () => {
     const newState = authReducer(defaultState, testAction);
     expect(newState.get('error')).toEqual(testError);
   });
-  it('updates state on LOG_OUT', () => {
-    const testState = defaultState.set('token', 'test_token')
-    const testAction = authActions.logOut();
+  it('updates state on LOGOUT_SUCCESS', () => {
+    const testState = defaultState.merge({
+      token: 'test',
+      googleTempToken: 'test',
+      session: 'test',
+      redirect: 'test',
+    })
+    const testAction = authActions.logOutSuccess();
     const newState = authReducer(testState, testAction);
     expect(newState.get('token')).toBeNull()
+    expect(newState.get('googleTempToken')).toBeNull()
+    expect(newState.get('session')).toBeNull()
+    expect(newState.get('redirect')).toBeNull()
   });
   it('updates state on AUTH_FAILURE_EMAIL_NOT_VALID', () => {
     const testError = new Error('blah')

@@ -3,6 +3,7 @@ const authActions = {
   AUTH_SUCCESS: 'AUTH_SUCCESS',
   AUTH_FAILURE: 'AUTH_FAILURE',
   LOG_OUT: 'LOG_OUT',
+  LOGOUT_SUCCESS: 'LOGOUT_SUCCESS',
   //Email and password log in
   AUTH_FAILURE_EMAIL_NOT_VALID: 'AUTH_FAILURE_EMAIL_NOT_VALID',
   // Google log in
@@ -23,6 +24,9 @@ const authActions = {
   }),
   logOut: () => ({
     type: authActions.LOG_OUT,
+  }),
+  logOutSuccess: () => ({
+    type: authActions.LOGOUT_SUCCESS,
   }),
   authFailureEmailNotValid: (message = 'Email Not Valid') => ({
     type: authActions.AUTH_FAILURE_EMAIL_NOT_VALID,

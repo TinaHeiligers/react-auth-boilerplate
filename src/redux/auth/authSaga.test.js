@@ -1,7 +1,7 @@
 /* global describe, it, expect */
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { push } from 'react-router-redux'
-import { loginPassword } from './authServices';
+import { loginPassword, logOut } from './authServices';
 import authActions from './authActions';
 import { 
   authorizeEmailPasswordWatcher,
@@ -55,8 +55,18 @@ describe('auth saga -> logOutWatcher', () => {
 });
 describe('auth saga -> logOutRunner', () => {
   let sagaGen;
-  it('3) should push to the root url', () => {
+  it('1) should call the api endpoint for logging out', () => {
     sagaGen = logOutRunner();
+    expect(sagaGen.next().value).toEqual(call(logOut));
+  });
+  it('2) should put LOGOUT_SUCCESS on successful log out response from the server', () => {
+    expect(sagaGen.next().value).toEqual(put({ type: authActions.LOGOUT_SUCCESS }));
+  });
+  it('3) should push to the root route', () => {
     expect(sagaGen.next().value).toEqual(put(push('/')));
-  })
+  });
+  it('Should catch errors', () => {
+    let testError = { status: 418 }
+    expect(sagaGen.throw(testError).value).toEqual(put({type: authActions.AUTH_FAILURE, error: 'Something went wrong :-(' }))
+  });
 });

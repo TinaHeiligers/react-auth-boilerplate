@@ -3,7 +3,7 @@ import authActions from './authActions';
 // add in a state for cookies (redirect and session)
 const initialState = new Map({
   token: null,
-  googleTempToken: null,
+  googleTempToken: null, // if we user the temp token clinet-direct Google login method.
   error: null,
   redirect: null, // the login redirect url
   session: null, // the JWT session cookie
@@ -17,12 +17,14 @@ const authReducer = (state = initialState, action) => {
     case authActions.AUTH_FAILURE: {
       return state.set('error', action.error);
     }
-    case authActions.LOG_OUT: {
+    case authActions.LOGOUT_SUCCESS: {
+      document.cookie = `redirect=;expires=Thu, 01 Jan 1970 00:00:00 GMT`;
       return state.merge({
         token: null,
         googleTempToken: null,
         session: null,
-      })
+        redirect: null,
+      });
     }
     case authActions.AUTH_FAILURE_EMAIL_NOT_VALID: {
       return state.set('error', action.error);
