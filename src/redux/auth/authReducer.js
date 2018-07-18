@@ -23,7 +23,8 @@ const authReducer = (state = initialState, action) => {
         token: null,
         googleTempToken: null,
         session: null,
-      })
+        redirect: null,
+      });
     }
     case authActions.AUTH_FAILURE_EMAIL_NOT_VALID: {
       return state.set('error', action.error);

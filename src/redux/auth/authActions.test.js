@@ -33,6 +33,12 @@ describe.only('>>Auth Action Creator', () => {
       type: authActions.LOG_OUT,
     });
   });
+  it('++actionCreator logOutSuccess', () => {
+    const testLogOutSuccess = authActions.logOutSuccess();
+    expect(testLogOutSuccess).toEqual({ 
+      type: authActions.LOGOUT_SUCCESS,
+    });
+  });
   it('++actionCreator authFailureEmailNotValid with an error message', () => {
     const testMessage = '';
     const testAuthFailureEmailNotValid = authActions.authFailureEmailNotValid(testMessage);
