@@ -4,7 +4,8 @@ import authActions from './authActions';
 import { 
   loginGoogle,
   axiosLoginAPI,
-  loginPassword
+  loginPassword,
+  logOut,
 } from './authServices';
 
 import { authMock, emailPasswordAuthMock } from './mockedAuthServices';
@@ -64,8 +65,19 @@ export function* logOutWatcher() {
   yield takeLatest(authActions.LOG_OUT, logOutRunner)
 }
 export function* logOutRunner() {
-  localStorage.removeItem('token');
-  yield put(push('/'));
+  try {
+    const result = yield call(logOut);
+    yield put({ type: authActions.LOGOUT_SUCCESS });
+    yield put(push('/'))
+  } catch (error) {
+    let message;
+    switch (error.status) {
+      case 500: message = 'Internal Server Error'; break;
+      case 401: message = 'Invalid credentials'; break;
+      default: message = 'Something went wrong :-(';
+    }
+    yield put({ type: authActions.AUTH_FAILURE, error: message });    
+  }
 }
 
 export default function* authSagas() {

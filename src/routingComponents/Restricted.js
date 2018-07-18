@@ -11,7 +11,7 @@ class Restricted extends Component {
     this.onLogOut = this.onLogOut.bind(this);
   }
   onLogOut() {
-    this.deleteAllCookies();
+    // this.deleteAllCookies(); // commented out during change to server log out.
     this.props.logOut();
   }
   deleteAllCookies() {

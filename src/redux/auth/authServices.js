@@ -27,7 +27,23 @@ export const loginGoogle = (options) => {
     const result = axios.post(`${baseURL}/auth/google`, options)
     .then(resolve)
     .catch(error => reject(error));
-    console.log("In axiosLoginGoogle", result)
     return result;
   });
 }
+
+export const logOut = () => {
+  const url = `${baseURL}/auth/logout`;
+  return fetch(url, {
+    method: 'GET',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'include',
+    headers: {
+      Accept : 'Access-Control',
+    },
+    redirect: 'follow',
+    referrer: 'no-referrer',
+  })
+  .then(response => JSON.stringify(response))
+  .catch(error => console.error(`Fetch Error =\n`, error));
+};
