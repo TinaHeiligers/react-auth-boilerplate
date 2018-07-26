@@ -6,6 +6,7 @@ import {
   axiosLoginAPI,
   loginPassword,
   logOut,
+  fetchClientsFromFIT,
 } from './authServices';
 
 import { authMock, emailPasswordAuthMock } from './mockedAuthServices';
@@ -79,11 +80,23 @@ export function* logOutRunner() {
     yield put({ type: authActions.AUTH_FAILURE, error: message });    
   }
 }
+export function* fetchClientWatcher() {
+  yield takeLatest(authActions.FETCH_CLIENTS, fetchClientsRunner)
+}
+export function* fetchClientsRunner() {
+  try {
+    const result = yield call(fetchClientsFromFIT);
+    yield put({ type: authActions.FETCH_CLIENTS_SUCCESS, data: result.data });
+  } catch (error) {
+    yield put({ type: authActions.FETCH_CLIENTS_ERROR, error: error });
+  }
+}
 
 export default function* authSagas() {
   yield all([
     fork(authorizeEmailPasswordWatcher),
     fork(axiosLoginGoogleWatcher),
     fork(logOutWatcher),
+    fork(fetchClientWatcher),
   ]);
 };

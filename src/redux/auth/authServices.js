@@ -47,3 +47,18 @@ export const logOut = () => {
   .then(response => JSON.stringify(response))
   .catch(error => console.error(`Fetch Error =\n`, error));
 };
+
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ZmZjMzEwOC1mZTY3LTRiMTItOWU1Ny0zNWZhOTFhYjliODEiLCJpYXQiOjE1MzI2MTc1OTEsImV4cCI6MTUzMjY2MDc5MX0.YZnccsjGK1OCowzrzhViZtaF62hNtxADNmM2uHfYnWk'
+export const fetchClientsFromFIT = () => {
+  const url= `http://findlawfitservice-env.p3wwrxabvq.us-east-2.elasticbeanstalk.com/fit/account`;
+  return fetch(url, {
+    method: 'GET', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, cors, *same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'include', // include, same-origin, *omit
+    headers: {
+      "Authorization": `Bearer ${token}`,
+    },
+    // referrer: 'no-referrer', // no-referrer, *client
+  })
+}

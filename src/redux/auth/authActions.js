@@ -10,6 +10,10 @@ const authActions = {
   AXIOS_LOGIN_GOOGLE_REQUEST: 'AXIOS_LOGIN_GOOGLE_REQUEST',
   EXTRACT_COOKIES: 'EXTRACT_COOKIES',
 
+  FETCH_CLIENTS: 'FETCH_CLIENTS',
+  FETCH_CLIENTS_SUCCESS: 'FETCH_CLIENTS_SUCCESS',
+  FETCH_CLIENTS_ERROR: 'FETCH_CLIENTS_ERROR',
+
   authorize: (username, password) => ({
     type: authActions.AUTH_REQUEST,
     payload: { username, password }
@@ -42,6 +46,17 @@ const authActions = {
   extractCookies: (allCookiesString) => ({
     type: authActions.EXTRACT_COOKIES,
     allCookies: allCookiesString,
+  }),
+  fetchClients: () => ({
+    type: authActions.FETCH_CLIENTS,
+  }),
+  fetchClientsSuccess: (data) => ({
+    type: authActions.FETCH_CLIENTS_SUCCESS,
+    data: data,
+  }),
+  fetchClientsError: (error) => ({
+    type: authActions.FETCH_CLIENTS_ERROR,
+    error: error,
   }),
 };
 export default authActions;

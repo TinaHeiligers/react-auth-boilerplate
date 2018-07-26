@@ -5,10 +5,14 @@ import { Redirect } from 'react-router-dom';
 import { validateEmail } from '../utils/validations';
 import authActions from '../redux/auth/authActions';
 import config from '../config.js';
-const { authorize, authFailureEmailNotValid } = authActions;
+const { authorize, authFailureEmailNotValid, fetchClients } = authActions;
 
 
 class SignInBasic extends PureComponent {
+  constructor() {
+    super()
+    this.callFitLawAccounts = this.callFitLawAccounts.bind(this);
+  }
   setLocationCookie() {
     document.cookie = `redirect=${config.baseUrl}/restricted`;
   }
@@ -22,6 +26,10 @@ class SignInBasic extends PureComponent {
     } else {
       this.props.authFailureEmailNotValid('not a valid email address');
     }
+  }
+  callFitLawAccounts() {
+    console.log('this:', this)
+    this.props.fetchClients();
   }
 
   render() {
@@ -53,6 +61,11 @@ class SignInBasic extends PureComponent {
               <button type='submit'>Submit</button>
             </div>
           </form>
+          <div>
+            <button
+              onClick={this.callFitLawAccounts}>FETCH CLIENTS
+            </button>
+        </div>
       </div>
     );
   }
@@ -70,6 +83,7 @@ export default connect(
   }), { 
     authorize, 
     authFailureEmailNotValid,
+    fetchClients,
   })(SignInBasic);
 // store a cookie on where we want to go back to,
 // TODO: api server picks up the cookie and looks for a redirect url
