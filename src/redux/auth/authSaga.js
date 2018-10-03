@@ -17,7 +17,6 @@ export function* authorizeEmailPasswordWatcher() {
 
 export function* authorizeEmailPasswordRunner(action) {
   const payload = action.payload;
-  console.log('the payload is: ', payload)
   const data = { username: payload.username, password: payload.password }
   try {
     const result = yield call(loginPassword, data) // Real call to the server using axios.
