@@ -7,6 +7,7 @@ const initialState = new Map({
   error: null,
   redirect: null, // the login redirect url
   session: null, // the JWT session cookie
+  data: null,
 });
 
 const authReducer = (state = initialState, action) => {

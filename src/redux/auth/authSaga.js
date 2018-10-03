@@ -6,6 +6,7 @@ import {
   axiosLoginAPI,
   loginPassword,
   logOut,
+  fetchClientsFromFIT,
 } from './authServices';
 
 import { authMock, emailPasswordAuthMock } from './mockedAuthServices';

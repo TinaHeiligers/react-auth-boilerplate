@@ -47,3 +47,4 @@ export const logOut = () => {
   .then(response => JSON.stringify(response))
   .catch(error => console.error(`Fetch Error =\n`, error));
 };
+

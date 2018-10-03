@@ -10,6 +10,7 @@ class SignInWithGoogle extends Component {
     window.location=`${config.apiUrl}/auth/google`;
 
   }
+  
   render() {
     return (
       <div>
@@ -19,6 +20,7 @@ class SignInWithGoogle extends Component {
             onClick={this.setCookieMakeRequest}
             >Login with Google</button>
         </div>
+        
       </div>
     );
   }
